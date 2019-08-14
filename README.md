@@ -7,7 +7,7 @@ clicy is a bridge between [Icy](http://icy.bioimageanalysis.org/) and [clij](htt
 Right now, this is very preliminary.
 
 ## Installation
-[Download ImageJ1](https://imagej.nih.gov/ij/download.html). In order to make CLICY run in Icy, download the following jar files, remove the number from their file name endings and put them in the `/plugins/haesleinhuepf/` directory of your Icy installation:
+[Download Icy](http://icy.bioimageanalysis.org/download/). In order to make CLICY run in Icy, download the following jar files, remove the number from their file name endings and put them in the `/plugins/haesleinhuepf/` directory of your Icy installation:
 
 * [clicy-0.1.0.jar](https://github.com/clij/clicy/releases/download/0.1.0/clicy-0.1.0.jar)
 * [bridj-0.7.0.jar](https://sites.imagej.net/clij/jars/bridj-0.7.0.jar-20181201213334)
