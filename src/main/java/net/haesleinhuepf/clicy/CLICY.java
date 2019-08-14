@@ -8,6 +8,12 @@ import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
 import net.haesleinhuepf.clij.utilities.CLIJOps;
 
+/**
+ * The CLICY gateway.
+ *
+ * Author: haesleinhuepf
+ *         August 2019
+ */
 public class CLICY {
     private static CLICY instance;
     private final CLIJ clij;

@@ -19,7 +19,10 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 import java.util.ArrayList;
 
-
+/**
+ * Author: haesleinhuepf
+ *         August 2019
+ */
 @Plugin(type = CLIJConverterPlugin.class)
 public class ClearCLBufferToSequenceConverter extends AbstractCLIJConverter<ClearCLBuffer, Sequence> {
 

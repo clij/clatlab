@@ -1,3 +1,11 @@
+// simplePipeline.js
+//
+// This script demonstrates how to use CLICY from Icys script editor.
+//
+// Author: Robert Haase, rhaase@mpi-cbg.de
+//         August 2019
+// -----------------------------------------
+
 importClass(net.haesleinhuepf.clicy.CLICY);
 importClass(Packages.icy.main.Icy);
 
