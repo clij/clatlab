@@ -2,6 +2,8 @@
  
 clicy is a bridge between [Icy](http://icy.bioimageanalysis.org/) and [clij](https://clij.github.io/).
 
+![Image](images/clicy-screenshot.png)
+
 Right now, this is very preliminary.
 
 ## Installation
@@ -20,7 +22,10 @@ Right now, this is very preliminary.
 * [jocl-2.0.1-jar](https://sites.imagej.net/clij/jars/jocl-2.0.1.jar-20181201212910)
 * [scijava-common-2.77.0-jar](https://sites.imagej.net/Java-8/jars/scijava-common-2.76.1.jar-20181204141527)
 
-### Please note
+## Examples
+Example code for Icys script editor can be found in the [javascript](https://github.com/clij/clicy/tree/master/src/main/javascript) directory.
+
+## Please note
 It is recommended to [use clij from Fiji](https://clij.github.io/clij-docs/installationInFiji). Icy support is experimental.
 
 [Back to CLIJ documentation](https://clij.github.io/)
