@@ -16,6 +16,13 @@
 	<name>CLIJ Icy</name>
 	<description>CLIJ bridge to Icy sequences.</description>
 
+	<repositories>
+		<repository>
+			<id>clij</id>
+			<url>http://dl.bintray.com/haesleinhuepf/clij</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<artifactId>.EzPlug.</artifactId>
