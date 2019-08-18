@@ -20,7 +20,7 @@ cd clatlab
 mvn package
 ```
 
-Open Matlab and navigate to the folder `<clatlab>/src/main/matlab` and open the `simpleworkflow.m` [example](https://github.com/haesleinhuepf/clatlab/blob/master/src/main/matlab/simplePipeline.m). 
+Open Matlab and navigate to the folder `<clatlab>/src/main/matlab` and open the `simpleworkflow.m` [example](https://github.com/clij/clatlab/blob/master/src/main/matlab/simplePipeline.m). 
 CLATLAB will only work from this folder for the moment.
 
 ## Please note
