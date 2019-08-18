@@ -27,11 +27,14 @@ version -java
 
 
 % load example data
-filename = '../resources/blobs.tif'
+filename = '../resources/blobs.tif';
 img = imread(filename);
+% there are issues with unit8/int8 conversion; 
+% thus, we convert the image to double
+img = double(img);
 
 % show input image in a subplot
-subplot(1,2,1), imshow(img)
+subplot(1,2,1), imshow(img, [0 255]);
 
 % import and initialize CLATLAB
 clatlab = net.haesleinhuepf.clatlab.CLATLAB.getInstance();
@@ -49,10 +52,10 @@ import java.lang.Float;
 clatlab.op().blur(input, output, Float(5), Float(5));
 
 % pull result back from GPU
-result = clatlab.pull(output)
+result = clatlab.pull(output);
 
 % show result
-subplot(1,2,2), imshow(result)
+subplot(1,2,2), imshow(result, [0 255]);
 
 % clean up
 input.close();
