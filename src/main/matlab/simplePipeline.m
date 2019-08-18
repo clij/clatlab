@@ -13,7 +13,7 @@
 % todo: when calling the following block the second time, warnings are thrown
 %       we cannot call clear java as dll files cannot be cleared and thus
 %       not reloaded...
-clatlab_folder = '../../../target/';
+clatlab_folder = '../../../classpath/';
 javaaddpath(strcat(clatlab_folder, 'clatlab-0.1.0.jar'));
 javaaddpath(strcat(clatlab_folder, 'bridj-0.7.0.jar'));
 javaaddpath(strcat(clatlab_folder, 'clij_-1.1.4.jar'));
@@ -28,13 +28,10 @@ javaaddpath(strcat(clatlab_folder, 'jocl-2.0.1.jar'));
 javaaddpath(strcat(clatlab_folder, 'scijava-common-2.76.1.jar'));
 
 % check class path
-javaclasspath()
+% javaclasspath()
 
 % check java version
-version -java 
-
-
-
+% version -java 
 
 % load example data
 filename = '../resources/blobs.tif';
