@@ -1,31 +1,30 @@
-# clicy
+# clatlab
  
-clicy is a bridge between [Icy](http://icy.bioimageanalysis.org/) and [clij](https://clij.github.io/).
+clatlab is a bridge between [Matlab](https://de.mathworks.com/products/matlab.html) and [clij](https://clij.github.io/).
 
-![Image](images/clicy-screenshot.png)
+![Image](images/clablab-screenshot.png)
 
 Right now, this is very preliminary.
 
 ## Installation
-[Download Icy](http://icy.bioimageanalysis.org/download/). In order to make CLICY run in Icy, download the following jar files, remove the number from their file name endings and put them in the `/plugins/haesleinhuepf/` directory of your Icy installation:
+Clone this repository.
 
-* [clicy-0.1.0.jar](https://github.com/clij/clicy/releases/download/0.1.0/clicy-0.1.0.jar)
-* [bridj-0.7.0.jar](https://sites.imagej.net/clij/jars/bridj-0.7.0.jar-20181201213334)
-* [clij_1.1.4.jar](https://github.com/clij/clij/releases/download/1.1.4/clij_-1.1.4.jar)
-* [clij-clearcl-0.8.4.jar](https://github.com/clij/clij/releases/download/1.1.3/clij-clearcl-0.8.4.jar)
-* [clij-core-1.1.4.jar](https://github.com/clij/clij/releases/download/1.1.4/clij-core-1.1.4.jar)
-* [clij-coremen-0.5.5.jar](https://github.com/clij/clij/releases/download/1.1.3/clij-coremem-0.5.5.jar)
-* [clij-legacy_-0.1.0.jar](https://github.com/clij/clij-legacy/releases/download/0.1.0/clij-legacy_-0.1.0.jar)
-* [imagej-common-0.28.2.jar](https://sites.imagej.net/Java-8/jars/imagej-common-0.28.2.jar-20190516211613)
-* [imglib2-5.6.3.jar](https://sites.imagej.net/Java-8/jars/imglib2-5.6.3.jar-20181204141527)
-* [imglib2-realtransform-2.1.0.jar](https://sites.imagej.net/Java-8/jars/imglib2-realtransform-2.1.0.jar-20181204141527)
-* [jocl-2.0.1-jar](https://sites.imagej.net/clij/jars/jocl-2.0.1.jar-20181201212910)
-* [scijava-common-2.77.0-jar](https://sites.imagej.net/Java-8/jars/scijava-common-2.76.1.jar-20181204141527)
+```
+git clone https://github.com/clij/clatlab
+```
 
-## Examples
-Example code for Icys script editor can be found in the [javascript](https://github.com/clij/clicy/tree/master/src/main/javascript) directory.
+Build it using maven.
+
+```
+cd clatlab
+mvn package
+```
+
+Open Matlab and navigate to the folder `<clatlab>/src/main/matlab` and open the `simpleworkflow.m` [example](https://github.com/haesleinhuepf/clatlab/blob/master/src/main/matlab/simplePipeline.m). 
+CLATLAB will only work from this folder for the moment.
 
 ## Please note
-It is recommended to [use clij from Fiji](https://clij.github.io/clij-docs/installationInFiji). Icy support is experimental.
+It is recommended to [use clij from Fiji](https://clij.github.io/clij-docs/installationInFiji). 
+Matlab support is under development.
 
 [Back to CLIJ documentation](https://clij.github.io/)

@@ -1,3 +1,13 @@
+% simplePipeline.m
+%
+% This script shows how to run CLATLAB for GPU accelerated image processing from MATLAB.
+%
+% Author: Robert Haase, rhaase@mpi-cbg.de
+%         August 2019
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 % initialize CLATLAB by adding all its jar files to the java classpath
 
 % todo: when calling the following block the second time, warnings are thrown
