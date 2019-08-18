@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>net.haesleinhuepf</groupId>
-	<artifactId>clicy</artifactId>
+	<artifactId>clablab</artifactId>
 	<version>0.1.0</version>
-	<name>CLIJ Icy</name>
-	<description>CLIJ bridge to Icy sequences.</description>
+	<name>CLIJ Matlab</name>
+	<description>CLIJ bridge to Matlab</description>
 
 	<repositories>
 		<repository>
@@ -25,39 +25,10 @@
 
 	<dependencies>
 		<dependency>
-			<artifactId>.EzPlug.</artifactId>
-			<groupId>..</groupId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>C:/Programs/icy_all_2.0.1.0/plugins/adufour/ezplug/EzPlug.jar</systemPath>
-		</dependency>
-		<dependency>
-			<artifactId>.icy.</artifactId>
-			<groupId>..</groupId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>C:/Programs/icy_all_2.0.1.0/icy.jar</systemPath>
-		</dependency>
-		<dependency>
 			<groupId>net.haesleinhuepf</groupId>
 			<artifactId>clij-core</artifactId>
 			<version>1.1.4</version>
 		</dependency>
 	</dependencies>
-	
-	<build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 	
 </project>
