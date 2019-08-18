@@ -1,6 +1,6 @@
 title: CLATLAB
 logo: /images/clij_logo.png
-description: GPU-accelerated image processing in Icy using CLIJ
+description: GPU-accelerated image processing in Matlab using CLIJ
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-minimal
