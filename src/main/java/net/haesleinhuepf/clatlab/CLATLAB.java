@@ -1,5 +1,10 @@
 package net.haesleinhuepf.clatlab;
 
+import net.haesleinhuepf.clatlab.converters.*;
+import net.haesleinhuepf.clatlab.helptypes.Byte2;
+import net.haesleinhuepf.clatlab.helptypes.Byte3;
+import net.haesleinhuepf.clatlab.helptypes.Double2;
+import net.haesleinhuepf.clatlab.helptypes.Double3;
 import net.haesleinhuepf.clij.CLIJ;
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
@@ -39,21 +44,56 @@ public class CLATLAB {
         return instance;
     }
 
-    public String push(Object object) {
+    public Object push(Object object) {
         if (object instanceof double[][][]) {
-            return "double[][][]";
+            Double3 double3 = new Double3((double[][][])object);
+            Double3ToClearCLBufferConverter converter = new Double3ToClearCLBufferConverter();
+            converter.setCLIJ(clij);
+            return converter.convert(double3);
         }
         if (object instanceof double[][]) {
-            return "double[][]";
+            Double2 double2 = new Double2((double[][])object);
+            Double2ToClearCLBufferConverter converter = new Double2ToClearCLBufferConverter();
+            converter.setCLIJ(clij);
+            return converter.convert(double2);
         }
-        if (object instanceof double[]) {
-            return "double[]";
+        if (object instanceof byte[][][]) {
+            Byte3 byte3 = new Byte3((byte[][][])object);
+            Byte3ToClearCLBufferConverter converter = new Byte3ToClearCLBufferConverter();
+            converter.setCLIJ(clij);
+            return converter.convert(byte3);
         }
-        if (object instanceof Double) {
-            return "Double";
+        if (object instanceof byte[][]) {
+            Byte2 byte2 = new Byte2((byte[][])object);
+            Byte2ToClearCLBufferConverter converter = new Byte2ToClearCLBufferConverter();
+            converter.setCLIJ(clij);
+            return converter.convert(byte2);
         }
-        return ("" + object + "\n" +
-                "" + object.getClass().getName());
+        throw new IllegalArgumentException("Conversion of " + object +
+                " / " + object.getClass().getName() + " not supported");
+    }
+
+    public Object pull(ClearCLBuffer buffer) {
+        if (buffer.getNativeType() == NativeTypeEnum.UnsignedByte) {
+            if (buffer.getDimension() == 2) {
+                return new ClearCLBufferToByte2Converter().convert(buffer).data;
+            }
+            if (buffer.getDimension() == 3) {
+                return new ClearCLBufferToByte3Converter().convert(buffer).data;
+            }
+        }
+        if (buffer.getNativeType() == NativeTypeEnum.Float) {
+            if (buffer.getDimension() == 2) {
+                return new ClearCLBufferToDouble2Converter().convert(buffer).data;
+            }
+            if (buffer.getDimension() == 3) {
+                return new ClearCLBufferToDouble3Converter().convert(buffer).data;
+            }
+        }
+
+        throw new IllegalArgumentException("Conversion of " + buffer +
+                " / " + buffer.getClass().getName() + " not supported");
+
     }
 
     public ClearCLBuffer create(long[] dimensions, NativeTypeEnum type) {

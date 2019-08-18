@@ -11,9 +11,9 @@
 	</parent>
 
 	<groupId>net.haesleinhuepf</groupId>
-	<artifactId>clablab</artifactId>
+	<artifactId>clatlab</artifactId>
 	<version>0.1.0</version>
-	<name>CLIJ Matlab</name>
+	<name>CLATLAB</name>
 	<description>CLIJ bridge to Matlab</description>
 
 	<repositories>
