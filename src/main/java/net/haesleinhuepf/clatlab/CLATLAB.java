@@ -1,14 +1,18 @@
 package net.haesleinhuepf.clatlab;
 
+import ij.ImagePlus;
 import net.haesleinhuepf.clatlab.converters.*;
 import net.haesleinhuepf.clatlab.helptypes.Byte2;
 import net.haesleinhuepf.clatlab.helptypes.Byte3;
 import net.haesleinhuepf.clatlab.helptypes.Double2;
 import net.haesleinhuepf.clatlab.helptypes.Double3;
+import net.haesleinhuepf.clatlab.utilities.MatlabConvenienceMethods;
 import net.haesleinhuepf.clij.CLIJ;
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
 import net.haesleinhuepf.clij.utilities.CLIJOps;
+import net.haesleinhuepf.clij2.CLIJ2;
+import net.haesleinhuepf.clij2.utilities.CLIJ2Ops;
 
 /**
  * The CLATLAB gateway.
@@ -20,14 +24,24 @@ public class CLATLAB {
 
 
     private static CLATLAB instance;
+    private static CLIJ2 clij2;
     private final CLIJ clij;
+
+    public final CLIJ2Ops op;
+    public final MatlabConvenienceMethods m;
 
     public CLATLAB() {
         this.clij = CLIJ.getInstance();
+        this.clij2 = new CLIJ2(clij);
+        op = clij2.op;
+        m = new MatlabConvenienceMethods(clij);
     }
 
     private CLATLAB(CLIJ clij) {
         this.clij = clij;
+        this.clij2 = new CLIJ2(clij);
+        op = clij2.op;
+        m = new MatlabConvenienceMethods(clij);
     }
 
     public static CLATLAB getInstance() {
@@ -74,14 +88,6 @@ public class CLATLAB {
     }
 
     public Object pull(ClearCLBuffer buffer) {
-        if (buffer.getNativeType() == NativeTypeEnum.UnsignedByte) {
-            if (buffer.getDimension() == 2) {
-                return new ClearCLBufferToByte2Converter().convert(buffer).data;
-            }
-            if (buffer.getDimension() == 3) {
-                return new ClearCLBufferToByte3Converter().convert(buffer).data;
-            }
-        }
         if (buffer.getNativeType() == NativeTypeEnum.Float) {
             if (buffer.getDimension() == 2) {
                 return new ClearCLBufferToDouble2Converter().convert(buffer).data;
@@ -93,22 +99,36 @@ public class CLATLAB {
 
         throw new IllegalArgumentException("Conversion of " + buffer +
                 " / " + buffer.getClass().getName() + " not supported");
-
     }
 
     public ClearCLBuffer create(long[] dimensions, NativeTypeEnum type) {
         return clij.create(dimensions, type);
     }
 
+
+    public ClearCLBuffer create(long[] dimensions) {
+        return clij.create(dimensions, NativeTypeEnum.Float);
+    }
+
     public ClearCLBuffer create(ClearCLBuffer buffer) {
         return clij.create(buffer);
     }
 
-    public CLIJOps op() {
-        return clij.op();
+    /*
+    * Deprecated: Use op without brackets instead
+    */
+    @Deprecated
+    public CLIJ2Ops op() {
+        return clij2.op;
     }
 
     public String getGPUName() {
         return clij.getGPUName();
+    }
+
+    public void show(Object object, String headline) {
+        ImagePlus imp = clij.convert(object, ImagePlus.class);
+        imp.setTitle(headline);
+        imp.show();
     }
 }
