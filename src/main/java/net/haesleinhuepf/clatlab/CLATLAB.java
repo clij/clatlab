@@ -34,14 +34,14 @@ public class CLATLAB {
         this.clij = CLIJ.getInstance();
         this.clij2 = new CLIJ2(clij);
         op = clij2.op;
-        m = new MatlabConvenienceMethods(clij);
+        m = new MatlabConvenienceMethods(clij2);
     }
 
     private CLATLAB(CLIJ clij) {
         this.clij = clij;
         this.clij2 = new CLIJ2(clij);
         op = clij2.op;
-        m = new MatlabConvenienceMethods(clij);
+        m = new MatlabConvenienceMethods(clij2);
     }
 
     public static CLATLAB getInstance() {
@@ -71,6 +71,12 @@ public class CLATLAB {
             converter.setCLIJ(clij);
             return converter.convert(double2);
         }
+        if (object instanceof double[]) {
+            Double2 double2 = new Double2(new double[][]{(double[])object});
+            Double2ToClearCLBufferConverter converter = new Double2ToClearCLBufferConverter();
+            converter.setCLIJ(clij);
+            return converter.convert(double2);
+        }
         if (object instanceof byte[][][]) {
             Byte3 byte3 = new Byte3((byte[][][])object);
             Byte3ToClearCLBufferConverter converter = new Byte3ToClearCLBufferConverter();
@@ -79,6 +85,12 @@ public class CLATLAB {
         }
         if (object instanceof byte[][]) {
             Byte2 byte2 = new Byte2((byte[][])object);
+            Byte2ToClearCLBufferConverter converter = new Byte2ToClearCLBufferConverter();
+            converter.setCLIJ(clij);
+            return converter.convert(byte2);
+        }
+        if (object instanceof byte[]) {
+            Byte2 byte2 = new Byte2(new byte[][]{(byte[])object});
             Byte2ToClearCLBufferConverter converter = new Byte2ToClearCLBufferConverter();
             converter.setCLIJ(clij);
             return converter.convert(byte2);
