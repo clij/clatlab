@@ -45,7 +45,7 @@ public class MatlabConvenienceMethods {
         return output;
     }
 
-    public ClearCLBuffer dotPlus(ClearCLBuffer bufferin1, ClearCLBuffer bufferin2) {
+    public ClearCLBuffer plus(ClearCLBuffer bufferin1, ClearCLBuffer bufferin2) {
         ClearCLBuffer output = clij2.create(bufferin1);
         clij2.op.addImages(bufferin1, bufferin2, output);
         return output;
@@ -57,19 +57,14 @@ public class MatlabConvenienceMethods {
         return output;
     }
 
-    public ClearCLBuffer[] imhist(ClearCLBuffer buffer, int numberOfBins) {
+    public ClearCLBuffer imhist(ClearCLBuffer buffer, int numberOfBins) {
         float minimumGreyValue = (new Double(clij2.op.minimumOfAllPixels(buffer))).floatValue();
         float maximumGreyValue = (new Double(clij2.op.maximumOfAllPixels(buffer))).floatValue();
 
         ClearCLBuffer histogram = clij2.create(new long[]{(long)numberOfBins, 1L, 1L}, NativeTypeEnum.Float);
         clij2.op.fillHistogram(buffer, histogram, minimumGreyValue, maximumGreyValue);
 
-        ClearCLBuffer intensities = clij2.create(histogram);
-        ClearCLBuffer temp = clij2.create(histogram);
-        clij2.op.set(intensities, 1f);
-        clij2.op.multiplyImageAndCoordinate(intensities, temp, 2);
-        intensities.close();
-        return new ClearCLBuffer[]{histogram, temp};
+        return histogram;
     }
 
     public ClearCLBuffer[] imRead(String imageFile) {
@@ -89,16 +84,61 @@ public class MatlabConvenienceMethods {
         return clij2.op.sumPixels(input) / input.getWidth() / input.getHeight() / input.getDepth();
     }
 
-    public ClearCLBuffer ones(int... numberOfElements) {
-        ClearCLBuffer buffer = anys(numberOfElements);
+    public ClearCLBuffer ones(int numberOfElementsX) {
+        ClearCLBuffer buffer = anys(numberOfElementsX);
         clij2.op.set(buffer, 1f);
         return buffer;
     }
 
-    public ClearCLBuffer zeros(int... numberOfElements) {
+    public ClearCLBuffer ones(int numberOfElementsX, int numberOfElementsY) {
+        ClearCLBuffer buffer = anys(numberOfElementsY, numberOfElementsX);
+        clij2.op.set(buffer, 1f);
+        return buffer;
+    }
+
+    public ClearCLBuffer ones(int numberOfElementsX, int numberOfElementsY, int numberOfElementsZ) {
+        ClearCLBuffer buffer = anys(numberOfElementsZ, numberOfElementsY, numberOfElementsX);
+        clij2.op.set(buffer, 1f);
+        return buffer;
+    }
+
+    public ClearCLBuffer zeros(int numberOfElements) {
         ClearCLBuffer buffer = anys(numberOfElements);
         clij2.op.set(buffer, 0f);
         return buffer;
+    }
+
+    public ClearCLBuffer zeros(int numberOfElementsX, int numberOfElementsY) {
+        ClearCLBuffer buffer = anys(numberOfElementsY, numberOfElementsX);
+        clij2.op.set(buffer, 0f);
+        return buffer;
+    }
+
+    public ClearCLBuffer zeros(int numberOfElementsX, int numberOfElementsY, int numberOfElementsZ) {
+        ClearCLBuffer buffer = anys(numberOfElementsZ, numberOfElementsY, numberOfElementsX);
+        clij2.op.set(buffer, 0f);
+        return buffer;
+    }
+
+    public ClearCLBuffer colon(int min, int max) {
+        ClearCLBuffer intensities = clij2.create(new long[]{max-min + 1, 1}, NativeTypeEnum.Float);
+        ClearCLBuffer temp = clij2.create(intensities);
+        clij2.op.set(intensities, 1f);
+        clij2.op.multiplyImageAndCoordinate(intensities, temp, 0);
+        clij2.op.addImageAndScalar(temp, intensities, new Float(min));
+        temp.close();
+        return intensities;
+    }
+
+    public ClearCLBuffer colonColon(int min, int step, int max) {
+        ClearCLBuffer intensities = clij2.create(new long[]{(max-min)/step + 1, 1}, NativeTypeEnum.Float);
+        ClearCLBuffer temp = clij2.create(intensities);
+        clij2.op.set(intensities, 1f);
+        clij2.op.multiplyImageAndCoordinate(intensities, temp, 0);
+        clij2.op.multiplyImageAndScalar(temp, intensities, new Float(step));
+        clij2.op.addImageAndScalar(intensities, temp, new Float(min));
+        intensities.close();
+        return temp;
     }
 
     public ClearCLBuffer anys(int... numberOfElements) {
@@ -107,9 +147,13 @@ public class MatlabConvenienceMethods {
             if (i < numberOfElements.length) {
                 dimensions[i] = numberOfElements[i];
             } else {
-                dimensions[i] = 1;
+                dimensions[i] = dimensions[0];
             }
         }
         return clij2.create(dimensions, NativeTypeEnum.Float);
+    }
+
+    public long[] size(ClearCLBuffer buffer) {
+        return clij2.op.getSize(buffer);
     }
 }

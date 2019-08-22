@@ -13,7 +13,7 @@
 
 % initialize CLATLAB by adding all its jar files to the java classpath
 % initialize CLATLAB
-clatlab = init_clatlab()
+clatlab = init_clatlab();
 
 % check on which GPU it's running 
 string(clatlab.getGPUName())
