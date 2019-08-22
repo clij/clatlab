@@ -8,7 +8,7 @@ Right now, this is very preliminary.
 
 ## Installation
 Download the following files, removed the numbers from their file endings and put them all in a folder:
-* [clatlab-0.1.0.jar](https://github.com/clij/clatlab/releases/download/0.1.0/clatlab-0.1.0.jar)
+* [clatlab-0.2.0.jar](https://github.com/clij/clatlab/releases/download/0.2.0/clatlab-0.2.0.jar)
 * [bridj-0.7.0.jar](https://sites.imagej.net/clij/jars/bridj-0.7.0.jar-20181201213334)
 * [clij_1.1.4.jar](https://github.com/clij/clij/releases/download/1.1.4/clij_-1.1.4.jar)
 * [clij-clearcl-0.8.4.jar](https://github.com/clij/clij/releases/download/1.1.3/clij-clearcl-0.8.4.jar)
@@ -20,6 +20,8 @@ Download the following files, removed the numbers from their file endings and pu
 * [imglib2-realtransform-2.1.0.jar](https://sites.imagej.net/Java-8/jars/imglib2-realtransform-2.1.0.jar-20181204141527)
 * [jocl-2.0.1.jar](https://sites.imagej.net/clij/jars/jocl-2.0.1.jar-20181201212910)
 * [scijava-common-2.77.0.jar](https://sites.imagej.net/Java-8/jars/scijava-common-2.76.1.jar-20181204141527)
+* [ij-1.52p.jar](https://sites.imagej.net/Java-8/jars/ij-1.52p.jar-20190701230425)
+* [clij-advanced-filters_-0.6.1.jar](https://github.com/clij/clij-advanced-filters/releases/download/0.6.1/clij-advanced-filters_-0.6.1.jar)
 
 In your matlab script, specify _every_ individual jar file in this folder using `javaaddpath('folder/jarfile.jar').
 
