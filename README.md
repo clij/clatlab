@@ -68,7 +68,7 @@ Following MOCL commands are implemented. Some are not fully tested yet. Work in 
 | ne(a,b)         | c = a ~= b           | c = a ~= b           | clij2.op.notEqual(a, b, c);                     |
 | eq(a,b)         | c = a == b           | c = a == b           | clij2.op.equal(a, b, c);                        |
 | and(a,b)        | c = a & b            | c = a & b            | clij.op().binaryAnd(a, b, c);                   |
-| or(a,b)         | c = a | b            | c = a | b            | clij.op().binaryOr(a, b, c);                    |
+| or(a,b)         | c = a &#x49; b            | c = a &#x49; b            | clij.op().binaryOr(a, b, c);                    |
 | not(a)          | c = ~b               | c = ~b               | clij.op().binaryNot(a, c);                      |
 | imhist(a)       | [c,x] = imhist(a)    | c = mocl.imhist(a)   | clij.op().fillHistogram(a, c);                  |
 | fliplr(a)       | c = fliplr(a)        | c = mocl.fliplr(a)   | clij.op().flip(a, c, true, false, false);       |
