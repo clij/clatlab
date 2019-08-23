@@ -47,7 +47,8 @@ c = mocl.pull(C);
 
 ### MOCL Commands
 Following MOCL commands are implemented. Some are not fully tested yet. Work in progress.
-| Command         | Matlab expresson     | mocl expression      | clij/clatlab counter part                            |
+
+| Command         | Matlab expresson     | mocl expression      | clij/clatlab counter part                       |
 | --------------- | -------------------- | -------------------- | ----------------------------------------------- |
 | push(a)         |                      | c = mocl.push(a)     | c = clij.push(a);                               |
 | pull(a)         |                      | c = mocl.pull(a)     | c = clij.pull(a);                               |
