@@ -1,14 +1,14 @@
 clatlab = init_clatlab()
-clm = clatlab.m;
+mocl = clatlab.mocl;
 
 a = [1 2 3; 2 3 4]
-b = [2 2 2; 4 4 4]
+b = [2 2; 2 4; 4 4]
 
-A = clatlab.push(a);
-B = clatlab.push(b);
+A = mocl.push(a);
+B = mocl.push(b);
 
-C = clm.dotStar(A, B);
+C = A * B;
 
-c = clatlab.pull(C)
+c = mocl.pull(C)
 
-c_ = a .* b
+c_ = a * b

@@ -53,6 +53,16 @@ public class MOCLBuffer {
         return new MOCLBuffer(mocl, output);
     }
 
+    //-a
+    //uminus(a)
+    //Unary minus
+    public MOCLBuffer uminus() {
+        MOCLBuffer input1 = this;
+        System.out.println("MOCL uminus");
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.invert(input1.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
 
     //a.'
     //transpose(a)
@@ -97,11 +107,12 @@ public class MOCLBuffer {
         System.out.println("MOCL mtimes");
         return times(scalar);
     }
-
     public MOCLBuffer mtimes(MOCLBuffer input2) {
-        //TODO
-        System.out.println("not implemented yet");
-        return null;
+        MOCLBuffer input1 = this;
+        System.out.println("MOCL mtimes");
+        ClearCLBuffer output = mocl.clij2.create(new long[]{input1.buffer.getWidth(), input2.buffer.getHeight()}, input1.buffer.getNativeType());
+        mocl.clij2.op.multiplyMatrix(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
     }
 
     //a./b
@@ -115,7 +126,6 @@ public class MOCLBuffer {
         return new MOCLBuffer(mocl, output);
     }
 
-
     //a.\b
     //ldivide(a,b)
     //Left element-wise division
@@ -124,33 +134,116 @@ public class MOCLBuffer {
         return input2.rdivide(this);
     }
 
-
-    public MOCLBuffer colon(int min, int max) {
-        System.out.println("MOCL colon2");
-        ClearCLBuffer intensities = mocl.clij2.create(new long[]{max-min + 1, 1}, NativeTypeEnum.Float);
-        ClearCLBuffer temp = mocl.clij2.create(intensities);
-        mocl.clij2.op.set(intensities, 1f);
-        mocl.clij2.op.multiplyImageAndCoordinate(intensities, temp, 0);
-        mocl.clij2.op.addImageAndScalar(temp, intensities, new Float(min));
-        temp.close();
-        return new MOCLBuffer(mocl, intensities);
+    //a.^b
+    //power(a,b)
+    //Element-wise power
+    public MOCLBuffer power(MOCLBuffer input2) {
+        System.out.println("MOCL power");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.powerImages(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
     }
 
-    public MOCLBuffer colon(int min, int step, int max) {
-        System.out.println("MOCL colon3");
-        ClearCLBuffer intensities = mocl.clij2.create(new long[]{(max-min)/step + 1, 1}, NativeTypeEnum.Float);
-        ClearCLBuffer temp = mocl.clij2.create(intensities);
-        mocl.clij2.op.set(intensities, 1f);
-        mocl.clij2.op.multiplyImageAndCoordinate(intensities, temp, 0);
-        mocl.clij2.op.multiplyImageAndScalar(temp, intensities, new Float(step));
-        mocl.clij2.op.addImageAndScalar(intensities, temp, new Float(min));
-        intensities.close();
-        return new MOCLBuffer(mocl, temp);
+    //a < b
+    //lt(a,b)
+    //Less than
+    public MOCLBuffer lt(MOCLBuffer input2) {
+        System.out.println("MOCL lt");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.smaller(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
+        //a > b
+    //gt(a,b)
+    //Greater than
+    public MOCLBuffer gt(MOCLBuffer input2) {
+        System.out.println("MOCL gt");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.greaterOrEqual(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
     }
 
-    //-a
-    //uminus(a)
-    //Unary minus
+    //a <= b
+    //le(a,b)
+    //Less than or equal to
+    public MOCLBuffer le(MOCLBuffer input2) {
+        System.out.println("MOCL le");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.smallerOrEqual(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
+
+    //a >= b
+    //ge(a,b)
+    //Greater than or equal to
+    public MOCLBuffer ge(MOCLBuffer input2) {
+        System.out.println("MOCL ge");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.greaterOrEqual(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
+
+    //a ~= b
+    //ne(a,b)
+    //Not equal to
+    public MOCLBuffer ne(MOCLBuffer input2) {
+        System.out.println("MOCL ne");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.notEqual(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
+
+    //a == b
+    //eq(a,b)
+    //Equality
+    public MOCLBuffer eq(MOCLBuffer input2) {
+        System.out.println("MOCL eq");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.equal(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
+
+    //a & b
+    //and(a,b)
+    //Logical AND
+    public MOCLBuffer and(MOCLBuffer input2) {
+        System.out.println("MOCL and");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.binaryAnd(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
+
+    //a | b
+    //or(a,b)
+    //Logical OR
+    public MOCLBuffer or(MOCLBuffer input2) {
+        System.out.println("MOCL or");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.binaryOr(input1.buffer, input2.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
+
+    //~a
+    //not(a)
+    //Logical NOT
+    public MOCLBuffer not() {
+        System.out.println("MOCL power");
+        MOCLBuffer input1 = this;
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.op.binaryNot(input1.buffer, output);
+        return new MOCLBuffer(mocl, output);
+    }
+
+
 
     //+a
     //uplus(a)
@@ -164,49 +257,14 @@ public class MOCLBuffer {
     //mldivide(a,b)
     //Matrix left division
 
-    //a.^b
-    //power(a,b)
-    //Element-wise power
 
     //a^b
     //mpower(a,b)
     //Matrix power
 
-    //a < b
-    //lt(a,b)
-    //Less than
+    //a:b
+    //colon(a,b)
 
-    //a > b
-    //gt(a,b)
-    //Greater than
-
-    //a <= b
-    //le(a,b)
-    //Less than or equal to
-
-    //a >= b
-    //ge(a,b)
-    //Greater than or equal to
-
-    //a ~= b
-    //ne(a,b)
-    //Not equal to
-
-    //a == b
-    //eq(a,b)
-    //Equality
-
-    //a & b
-    //and(a,b)
-    //Logical AND
-
-    //a | b
-    //or(a,b)
-    //Logical OR
-
-    //~a
-    //not(a)
-    //Logical NOT
 
     //a:d:b
     //a:b

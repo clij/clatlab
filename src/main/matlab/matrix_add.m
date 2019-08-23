@@ -1,13 +1,12 @@
 clatlab = init_clatlab();
-clm = clatlab.m;
+mocl = clatlab.mocl;
+
+A = mocl.ones(10, 1) * 6 + 8;
+B = mocl.ones(10, 1) * 67 + 6;
+C = A + B;
 
 a = ones(10, 1) * 6 + 8;
 b = ones(10, 1) * 67 + 6;
 
-A = clatlab.push(a);
-B = clatlab.push(b);
-
-C = clm.plus(A, B);
-
-c = clatlab.pull(C)
+c = mocl.pull(C)
 c_ = a + b

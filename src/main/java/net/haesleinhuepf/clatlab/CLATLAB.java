@@ -1,11 +1,6 @@
 package net.haesleinhuepf.clatlab;
 
 import ij.ImagePlus;
-import net.haesleinhuepf.clatlab.converters.*;
-import net.haesleinhuepf.clatlab.helptypes.Byte2;
-import net.haesleinhuepf.clatlab.helptypes.Byte3;
-import net.haesleinhuepf.clatlab.helptypes.Double2;
-import net.haesleinhuepf.clatlab.helptypes.Double3;
 import net.haesleinhuepf.clij.CLIJ;
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
@@ -26,20 +21,20 @@ public class CLATLAB {
     private final CLIJ clij;
 
     public final CLIJ2Ops op;
-    public final MOCL m;
+    public final MOCL mocl;
 
     public CLATLAB() {
         this.clij = CLIJ.getInstance();
         this.clij2 = new CLIJ2(clij);
         op = clij2.op;
-        m = new MOCL(clij2);
+        mocl = new MOCL(clij2, clij);
     }
 
     private CLATLAB(CLIJ clij) {
         this.clij = clij;
         this.clij2 = new CLIJ2(clij);
         op = clij2.op;
-        m = new MOCL(clij2);
+        mocl = new MOCL(clij2, clij);
     }
 
     public static CLATLAB getInstance() {
@@ -56,65 +51,18 @@ public class CLATLAB {
         return instance;
     }
 
+    @Deprecated
     public Object push(Object object) {
-        if (object instanceof double[][][]) {
-            Double3 double3 = new Double3((double[][][])object);
-            Double3ToClearCLBufferConverter converter = new Double3ToClearCLBufferConverter();
-            converter.setCLIJ(clij);
-            return converter.convert(double3);
-        }
-        if (object instanceof double[][]) {
-            Double2 double2 = new Double2((double[][])object);
-            Double2ToClearCLBufferConverter converter = new Double2ToClearCLBufferConverter();
-            converter.setCLIJ(clij);
-            return converter.convert(double2);
-        }
-        if (object instanceof double[]) {
-            Double2 double2 = new Double2(new double[][]{(double[])object});
-            Double2ToClearCLBufferConverter converter = new Double2ToClearCLBufferConverter();
-            converter.setCLIJ(clij);
-            return converter.convert(double2);
-        }
-        if (object instanceof byte[][][]) {
-            Byte3 byte3 = new Byte3((byte[][][])object);
-            Byte3ToClearCLBufferConverter converter = new Byte3ToClearCLBufferConverter();
-            converter.setCLIJ(clij);
-            return converter.convert(byte3);
-        }
-        if (object instanceof byte[][]) {
-            Byte2 byte2 = new Byte2((byte[][])object);
-            Byte2ToClearCLBufferConverter converter = new Byte2ToClearCLBufferConverter();
-            converter.setCLIJ(clij);
-            return converter.convert(byte2);
-        }
-        if (object instanceof byte[]) {
-            Byte2 byte2 = new Byte2(new byte[][]{(byte[])object});
-            Byte2ToClearCLBufferConverter converter = new Byte2ToClearCLBufferConverter();
-            converter.setCLIJ(clij);
-            return converter.convert(byte2);
-        }
-        throw new IllegalArgumentException("Conversion of " + object +
-                " / " + object.getClass().getName() + " not supported");
+        return mocl.push(object).buffer;
     }
 
     public Object pull(ClearCLBuffer buffer) {
-        if (buffer.getNativeType() == NativeTypeEnum.Float) {
-            if (buffer.getDimension() == 2) {
-                return new ClearCLBufferToDouble2Converter().convert(buffer).data;
-            }
-            if (buffer.getDimension() == 3) {
-                return new ClearCLBufferToDouble3Converter().convert(buffer).data;
-            }
-        }
-
-        throw new IllegalArgumentException("Conversion of " + buffer +
-                " / " + buffer.getClass().getName() + " not supported");
+        return mocl.pull(buffer);
     }
 
     public ClearCLBuffer create(long[] dimensions, NativeTypeEnum type) {
         return clij.create(dimensions, type);
     }
-
 
     public ClearCLBuffer create(long[] dimensions) {
         return clij.create(dimensions, NativeTypeEnum.Float);
@@ -140,13 +88,5 @@ public class CLATLAB {
         ImagePlus imp = clij.convert(object, ImagePlus.class);
         imp.setTitle(headline);
         imp.show();
-    }
-
-    public MOCLBuffer toMOCL(ClearCLBuffer input) {
-        return new MOCLBuffer(m, input);
-    }
-
-    public ClearCLBuffer toCL(MOCLBuffer moclBuffer){
-        return moclBuffer.buffer;
     }
 }
