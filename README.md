@@ -31,7 +31,7 @@ Clatlab provides two entry points for processing:
 ```
 clatlab.op.blur(imageIn, imageOut, Float(5), Float(5));
 ```
-* `clatlab.mocl` contains functionality running which is accessible like matlab functions, but they are running on the GPU. For example
+* `clatlab.mocl` contains functionality which is accessible in a matlab way, but they are running using clij and OpenCL on the GPU. You can replace matlab code by mocl code:
 ```matlab
 % matlab code:
 a = ones(10, 1) * 6 + 8;
