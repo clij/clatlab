@@ -84,7 +84,15 @@ Following MOCL commands are implemented. Some are not fully tested yet. Work in 
 Examples are available in the [matlab](https://github.com/clij/clatlab/blob/master/src/main/matlab/) folder. 
 
 ## How to develop clatlab
-Clone this repository
+Clone this repository and build it using maven. Afterwards, you find the `clatlab.jar` in the `target` directory. 
+Copy it to your clatlab/matlab java classpath.
+
+```bash
+git clone https://github.com/clij/clatlab
+cd clatlab
+mvn package
+cp target/clatlab*.jar classpath/
+```
 
 
 ## Please note
