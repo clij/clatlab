@@ -1,19 +1,16 @@
 clatlab = init_clatlab();
-clm = clatlab.m;
+mocl = clatlab.m;
 
-a = ones(10000, 1) * 6 + 8;
-b = ones(10000, 1) * 67 + 6;
-
-A = clatlab.push(a);
-B = clatlab.push(b);
+A = mocl.ones(1000) * 3 + 5;
+B = mocl.ones(1000) * 3 + 5;
 
 before_gpu = now;
-
-C = clm.plus(A, B);
-
+C = A + B;
 duration_gpu = now - before_gpu
+C_ = mocl.mat(C);
 
-c = clatlab.pull(C);
+a = mocl.mat(A);
+b = mocl.mat(B);
 
 before_cpu = now;
 c_ = a + b;

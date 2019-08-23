@@ -6,11 +6,9 @@ import net.haesleinhuepf.clatlab.helptypes.Byte2;
 import net.haesleinhuepf.clatlab.helptypes.Byte3;
 import net.haesleinhuepf.clatlab.helptypes.Double2;
 import net.haesleinhuepf.clatlab.helptypes.Double3;
-import net.haesleinhuepf.clatlab.utilities.MatlabConvenienceMethods;
 import net.haesleinhuepf.clij.CLIJ;
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
-import net.haesleinhuepf.clij.utilities.CLIJOps;
 import net.haesleinhuepf.clij2.CLIJ2;
 import net.haesleinhuepf.clij2.utilities.CLIJ2Ops;
 
@@ -28,20 +26,20 @@ public class CLATLAB {
     private final CLIJ clij;
 
     public final CLIJ2Ops op;
-    public final MatlabConvenienceMethods m;
+    public final MOCL m;
 
     public CLATLAB() {
         this.clij = CLIJ.getInstance();
         this.clij2 = new CLIJ2(clij);
         op = clij2.op;
-        m = new MatlabConvenienceMethods(clij2);
+        m = new MOCL(clij2);
     }
 
     private CLATLAB(CLIJ clij) {
         this.clij = clij;
         this.clij2 = new CLIJ2(clij);
         op = clij2.op;
-        m = new MatlabConvenienceMethods(clij2);
+        m = new MOCL(clij2);
     }
 
     public static CLATLAB getInstance() {
@@ -142,5 +140,13 @@ public class CLATLAB {
         ImagePlus imp = clij.convert(object, ImagePlus.class);
         imp.setTitle(headline);
         imp.show();
+    }
+
+    public MOCLBuffer toMOCL(ClearCLBuffer input) {
+        return new MOCLBuffer(m, input);
+    }
+
+    public ClearCLBuffer toCL(MOCLBuffer moclBuffer){
+        return moclBuffer.buffer;
     }
 }
