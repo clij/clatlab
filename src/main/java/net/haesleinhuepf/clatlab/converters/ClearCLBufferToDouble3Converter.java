@@ -14,17 +14,17 @@ public class ClearCLBufferToDouble3Converter extends AbstractCLIJConverter<Clear
 
     @Override
     public Double3 convert(ClearCLBuffer source) {
-        Double3 target = new Double3(new double[(int)source.getDepth()][(int)source.getHeight()][(int)source.getWidth()]);
+        Double3 target = new Double3(new double[(int)source.getWidth()][(int)source.getHeight()][(int)source.getDepth()]);
         float[] array = new float[(int)(source.getWidth() * source.getHeight() * source.getDepth())];
 
         FloatBuffer buffer = FloatBuffer.wrap(array);
         source.writeTo(buffer, true);
 
         int count = 0;
-        for (int z = 0; z < target.data.length; z++) {
+        for (int z = 0; z < target.data[0][0].length; z++) {
             for (int y = 0; y < target.data[0].length; y++) {
-                for (int x = 0; x < target.data[0][0].length; x++) {
-                    target.data[z][y][x] = array[count];
+                for (int x = 0; x < target.data.length; x++) {
+                    target.data[x][y][z] = array[count];
                     count++;
                 }
             }

@@ -12,7 +12,7 @@
 
 	<groupId>net.haesleinhuepf</groupId>
 	<artifactId>clatlab</artifactId>
-	<version>0.2.0</version>
+	<version>0.2.1</version>
 	<name>CLATLAB</name>
 	<description>CLIJ bridge to Matlab</description>
 
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>net.haesleinhuepf</groupId>
 			<artifactId>clij-advanced-filters_</artifactId>
-			<version>0.6.1</version>
+			<version>0.6.2</version>
 		</dependency>
 	</dependencies>
 	

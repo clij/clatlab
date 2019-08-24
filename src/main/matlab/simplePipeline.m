@@ -9,7 +9,7 @@
 
 
 % initialize CLATLAB
-clatlab = init_clatlab()
+clatlab = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';

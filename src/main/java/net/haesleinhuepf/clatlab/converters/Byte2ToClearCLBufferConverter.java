@@ -15,8 +15,8 @@ public class Byte2ToClearCLBufferConverter extends AbstractCLIJConverter<Byte2, 
     @Override
     public ClearCLBuffer convert(Byte2 source) {
         long[] dimensions = new long[]{
-                source.data[0].length,
-                source.data.length
+                source.data.length,
+                source.data[0].length
         };
 
         int numberOfPixelsPerSlice = (int)(dimensions[0] * dimensions[1]);
@@ -29,7 +29,7 @@ public class Byte2ToClearCLBufferConverter extends AbstractCLIJConverter<Byte2, 
         int count = 0;
         for (int y = 0; y < dimensions[1]; y++) {
             for (int x = 0; x < dimensions[0]; x++) {
-                inputArray[count] = source.data[y][x];
+                inputArray[count] = source.data[x][y];
                 count++;
             }
         }

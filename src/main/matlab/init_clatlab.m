@@ -1,3 +1,16 @@
+% init_clatlab.m
+%
+% This is a utiliy function simplifying CLATLAB initialisation.
+% You may have to change clatlab_folder variable below to fit your needs.
+%
+% In order to make this script run, you need to install CLATLAB
+%         https://clij.github.io/clatlab/
+% 
+% Author: Robert Haase, rhaase@mpi-cbg.de
+%         August 2019
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function clatlab_ = init_clatlab()
     if (exist('clatlab') == 0)
         clatlab_folder = '../../../classpath/';

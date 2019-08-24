@@ -1,6 +1,7 @@
 package net.haesleinhuepf.clatlab.converters;
 
-import net.haesleinhuepf.clatlab.helptypes.Byte3;
+import net.haesleinhuepf.clatlab.helptypes.Byte1;
+import net.haesleinhuepf.clatlab.helptypes.Byte2;
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.converters.AbstractCLIJConverter;
 import net.haesleinhuepf.clij.converters.CLIJConverterPlugin;
@@ -10,31 +11,26 @@ import org.scijava.plugin.Plugin;
 import java.nio.ByteBuffer;
 
 @Plugin(type = CLIJConverterPlugin.class)
-public class Byte3ToClearCLBufferConverter extends AbstractCLIJConverter<Byte3, ClearCLBuffer> {
+public class Byte1ToClearCLBufferConverter extends AbstractCLIJConverter<Byte1, ClearCLBuffer> {
 
     @Override
-    public ClearCLBuffer convert(Byte3 source) {
+    public ClearCLBuffer convert(Byte1 source) {
         long[] dimensions = new long[]{
-                source.data.length,
-                source.data[0].length,
-                source.data[0][0].length
+                1,
+                source.data.length
         };
 
         int numberOfPixelsPerSlice = (int)(dimensions[0] * dimensions[1]);
-        long numberOfPixels = numberOfPixelsPerSlice * dimensions[2];
+        long numberOfPixels = numberOfPixelsPerSlice;
 
 
         ClearCLBuffer target = clij.createCLBuffer(dimensions, NativeTypeEnum.UnsignedByte);
         byte[] inputArray = new byte[(int)numberOfPixels];
 
         int count = 0;
-        for (int z = 0; z < dimensions[2]; z++) {
-            for (int y = 0; y < dimensions[1]; y++) {
-                for (int x = 0; x < dimensions[0]; x++) {
-                    inputArray[count] = source.data[x][y][z];
-                    count++;
-                }
-            }
+        for (int x = 0; x < dimensions[1]; x++) {
+            inputArray[count] = source.data[x];
+            count++;
         }
         ByteBuffer byteBuffer = ByteBuffer.wrap(inputArray);
         target.readFrom(byteBuffer, true);
@@ -42,8 +38,8 @@ public class Byte3ToClearCLBufferConverter extends AbstractCLIJConverter<Byte3, 
     }
 
     @Override
-    public Class<Byte3> getSourceType() {
-        return Byte3.class;
+    public Class<Byte1> getSourceType() {
+        return Byte1.class;
     }
 
     @Override
