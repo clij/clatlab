@@ -1,3 +1,15 @@
+% init_arrrays.m
+%
+% This is a test script for initializing arrays in CPU an GPU memory.
+%
+% In order to make this script run, you need to install CLATLAB
+%         https://clij.github.io/clatlab/
+% 
+% Author: Robert Haase, rhaase@mpi-cbg.de
+%         August 2019
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 clatlab = init_clatlab();
 mocl = clatlab.mocl;
 

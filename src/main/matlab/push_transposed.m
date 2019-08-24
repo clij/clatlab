@@ -1,6 +1,7 @@
-% matrix_multiply.m
+% push_transposed.m
 %
-% This script shows how to multiply matrices in the GPU using CLATLAB.
+% This script demonstrates and issue with pushing transposed vectors to
+% the GPU.
 %
 % In order to make this script run, you need to install CLATLAB
 %         https://clij.github.io/clatlab/
@@ -13,23 +14,20 @@
 clatlab = init_clatlab()
 mocl = clatlab.mocl;
 
-a = [1 2 3]'
-b = [1 2 3]
-
-A = mocl.push(a).';
-a = mocl.pull(A) 
-B = mocl.push(b);
-b = mocl.pull(B) 
+a = [1 2 3]
+b = [1 2 3]'
 
 size_a = size(a)
-size_A = mocl.size(A)
 size_b = size(b)
+
+% when pushing two vectors 1x3 and 3x1 to the GPU
+A = mocl.push(a);
+B = mocl.push(b);
+
+% they both arrived there as 3x1 vector.
+size_A = mocl.size(A)
 size_B = mocl.size(B)
-a
-b
-% multiply matrices on the GPU
-C = A * B;
 
-c = mocl.pull(C)
+% workaround: transpose in the GPU:
+size_B_transposed = mocl.size(B.')
 
-c_ = a * b

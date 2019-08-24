@@ -19,16 +19,16 @@ public class ClearCLBufferToDouble2Converter extends AbstractCLIJConverter<Clear
 
     @Override
     public Double2 convert(ClearCLBuffer source) {
-        Double2 target = new Double2(new double[(int)source.getHeight()][(int)source.getWidth()]);
+        Double2 target = new Double2(new double[(int)source.getWidth()][(int)source.getHeight()]);
         float[] array = new float[(int)(source.getWidth() * source.getHeight())];
 
         FloatBuffer buffer = FloatBuffer.wrap(array);
         source.writeTo(buffer, true);
 
         int count = 0;
-        for (int y = 0; y < target.data.length; y++) {
-            for (int x = 0; x < target.data[0].length; x++) {
-                target.data[y][x] = array[count];
+        for (int y = 0; y < target.data[0].length; y++) {
+            for (int x = 0; x < target.data.length; x++) {
+                target.data[x][y] = array[count];
                 count++;
             }
         }

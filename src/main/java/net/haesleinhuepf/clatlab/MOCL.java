@@ -3,10 +3,7 @@ package net.haesleinhuepf.clatlab;
 import ij.IJ;
 import ij.ImagePlus;
 import net.haesleinhuepf.clatlab.converters.*;
-import net.haesleinhuepf.clatlab.helptypes.Byte2;
-import net.haesleinhuepf.clatlab.helptypes.Byte3;
-import net.haesleinhuepf.clatlab.helptypes.Double2;
-import net.haesleinhuepf.clatlab.helptypes.Double3;
+import net.haesleinhuepf.clatlab.helptypes.*;
 import net.haesleinhuepf.clij.CLIJ;
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
@@ -75,13 +72,13 @@ public class MOCL {
     }
 
     public MOCLBuffer ones(int numberOfElementsX, int numberOfElementsY) {
-        ClearCLBuffer buffer = anys(numberOfElementsY, numberOfElementsX).buffer;
+        ClearCLBuffer buffer = anys(numberOfElementsX, numberOfElementsY).buffer;
         clij2.op.set(buffer, 1f);
         return new MOCLBuffer(this, buffer);
     }
 
     public MOCLBuffer ones(int numberOfElementsX, int numberOfElementsY, int numberOfElementsZ) {
-        ClearCLBuffer buffer = anys(numberOfElementsZ, numberOfElementsY, numberOfElementsX).buffer;
+        ClearCLBuffer buffer = anys(numberOfElementsX, numberOfElementsY, numberOfElementsZ).buffer;
         clij2.op.set(buffer, 1f);
         return new MOCLBuffer(this, buffer);
     }
@@ -93,13 +90,13 @@ public class MOCL {
     }
 
     public MOCLBuffer zeros(int numberOfElementsX, int numberOfElementsY) {
-        ClearCLBuffer buffer = anys(numberOfElementsY, numberOfElementsX).buffer;
+        ClearCLBuffer buffer = anys(numberOfElementsX, numberOfElementsY).buffer;
         clij2.op.set(buffer, 0f);
         return new MOCLBuffer(this, buffer);
     }
 
     public MOCLBuffer zeros(int numberOfElementsX, int numberOfElementsY, int numberOfElementsZ) {
-        ClearCLBuffer buffer = anys(numberOfElementsZ, numberOfElementsY, numberOfElementsX).buffer;
+        ClearCLBuffer buffer = anys(numberOfElementsX, numberOfElementsY, numberOfElementsZ).buffer;
         clij2.op.set(buffer, 0f);
         return new MOCLBuffer(this, buffer);
     }
@@ -145,41 +142,50 @@ public class MOCL {
     }
 
     public MOCLBuffer push(Object object) {
+        if (object instanceof MOCLBuffer) {
+            return (MOCLBuffer)object;
+        }
         if (object instanceof double[][][]) {
             Double3 double3 = new Double3((double[][][])object);
+            System.out.println("d3 size: " + double3.data.length + "/" + double3.data[0].length + "/" + double3.data[0][0].length );
             Double3ToClearCLBufferConverter converter = new Double3ToClearCLBufferConverter();
             converter.setCLIJ(clij);
             return new MOCLBuffer(this, converter.convert(double3));
         }
         if (object instanceof double[][]) {
             Double2 double2 = new Double2((double[][])object);
+            System.out.println("d2 size: " + double2.data.length + "/" + double2.data[0].length );
             Double2ToClearCLBufferConverter converter = new Double2ToClearCLBufferConverter();
             converter.setCLIJ(clij);
             return new MOCLBuffer(this, converter.convert(double2));
         }
         if (object instanceof double[]) {
-            Double2 double2 = new Double2(new double[][]{(double[])object});
-            Double2ToClearCLBufferConverter converter = new Double2ToClearCLBufferConverter();
+            Double1 double1 = new Double1((double[])object);
+            System.out.println("d1 size: " + double1.data.length );
+            Double1ToClearCLBufferConverter converter = new Double1ToClearCLBufferConverter();
             converter.setCLIJ(clij);
-            return new MOCLBuffer(this, converter.convert(double2));
+            return new MOCLBuffer(this, converter.convert(double1));
         }
         if (object instanceof byte[][][]) {
             Byte3 byte3 = new Byte3((byte[][][])object);
+            System.out.println("b3 size: " + byte3.data.length + "/" + byte3.data[0].length + "/" + byte3.data[0][0].length );
             Byte3ToClearCLBufferConverter converter = new Byte3ToClearCLBufferConverter();
             converter.setCLIJ(clij);
             return new MOCLBuffer(this, converter.convert(byte3));
         }
         if (object instanceof byte[][]) {
             Byte2 byte2 = new Byte2((byte[][])object);
+            System.out.println("b2 size: " + byte2.data.length + "/" + byte2.data[0].length );
             Byte2ToClearCLBufferConverter converter = new Byte2ToClearCLBufferConverter();
             converter.setCLIJ(clij);
             return new MOCLBuffer(this, converter.convert(byte2));
         }
         if (object instanceof byte[]) {
-            Byte2 byte2 = new Byte2(new byte[][]{(byte[])object});
-            Byte2ToClearCLBufferConverter converter = new Byte2ToClearCLBufferConverter();
+            Byte1 byte1 = new Byte1((byte[])object);
+            System.out.println("b1 size: " + byte1.data.length);
+            Byte1ToClearCLBufferConverter converter = new Byte1ToClearCLBufferConverter();
             converter.setCLIJ(clij);
-            return new MOCLBuffer(this, converter.convert(byte2));
+            return new MOCLBuffer(this, converter.convert(byte1));
         }
         throw new IllegalArgumentException("Conversion of " + object +
                 " / " + object.getClass().getName() + " not supported");

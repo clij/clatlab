@@ -1,12 +1,27 @@
+% matrix_add.m
+%
+% This script shows how to add matrices in the GPU using CLATLAB.
+%
+% In order to make this script run, you need to install CLATLAB
+%         https://clij.github.io/clatlab/
+% 
+% Author: Robert Haase, rhaase@mpi-cbg.de
+%         August 2019
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 clatlab = init_clatlab();
 mocl = clatlab.mocl;
 
 A = mocl.ones(10, 1) * 6 + 8;
 B = mocl.ones(10, 1) * 67 + 6;
+
+% add matrices on the GPU
 C = A + B;
 
 a = ones(10, 1) * 6 + 8;
 b = ones(10, 1) * 67 + 6;
 
+% show result (GPU and CPU)
 c = mocl.pull(C)
 c_ = a + b

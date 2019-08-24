@@ -1,6 +1,7 @@
 package net.haesleinhuepf.clatlab.converters;
 
-import net.haesleinhuepf.clatlab.helptypes.Double3;
+import net.haesleinhuepf.clatlab.helptypes.Double1;
+import net.haesleinhuepf.clatlab.helptypes.Double2;
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.converters.AbstractCLIJConverter;
 import net.haesleinhuepf.clij.converters.CLIJConverterPlugin;
@@ -10,31 +11,26 @@ import org.scijava.plugin.Plugin;
 import java.nio.FloatBuffer;
 
 @Plugin(type = CLIJConverterPlugin.class)
-public class Double3ToClearCLBufferConverter extends AbstractCLIJConverter<Double3, ClearCLBuffer> {
+public class Double1ToClearCLBufferConverter extends AbstractCLIJConverter<Double1, ClearCLBuffer> {
 
     @Override
-    public ClearCLBuffer convert(Double3 source) {
+    public ClearCLBuffer convert(Double1 source) {
         long[] dimensions = new long[]{
-                source.data.length,
-                source.data[0].length,
-                source.data[0][0].length
+                1,
+                source.data.length
         };
 
         int numberOfPixelsPerSlice = (int)(dimensions[0] * dimensions[1]);
-        long numberOfPixels = numberOfPixelsPerSlice * dimensions[2];
+        long numberOfPixels = numberOfPixelsPerSlice;
 
 
         ClearCLBuffer target = clij.createCLBuffer(dimensions, NativeTypeEnum.Float);
         float[] inputArray = new float[(int)numberOfPixels];
 
         int count = 0;
-        for (int z = 0; z < dimensions[2]; z++) {
-            for (int y = 0; y < dimensions[1]; y++) {
-                for (int x = 0; x < dimensions[0]; x++) {
-                    inputArray[count] = (float)source.data[x][y][z];
-                    count++;
-                }
-            }
+        for (int x = 0; x < dimensions[1]; x++) {
+            inputArray[count] = (float)source.data[x];
+            count++;
         }
         FloatBuffer byteBuffer = FloatBuffer.wrap(inputArray);
         target.readFrom(byteBuffer, true);
@@ -42,8 +38,8 @@ public class Double3ToClearCLBufferConverter extends AbstractCLIJConverter<Doubl
     }
 
     @Override
-    public Class<Double3> getSourceType() {
-        return Double3.class;
+    public Class<Double1> getSourceType() {
+        return Double1.class;
     }
 
     @Override

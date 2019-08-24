@@ -11,7 +11,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% initialize CLATLAB by adding all its jar files to the java classpath
 % initialize CLATLAB
 clatlab = init_clatlab();
 
@@ -31,7 +30,7 @@ for i = 1:numberOfImages
         image = cat(3, image, plane);
     end
 end 
-image = permute(image, [3 2 1]);
+% image = permute(image, [1 2 3]);
 
 image = double(image);
 
@@ -91,7 +90,7 @@ clatlab.op().spotsToPointList(labelled, pointlist);
 
 points = clatlab.pull(pointlist)';
 figure
-scatter3(points(:,1), points(:,2), points(:,3))
+scatter3(points(1,:), points(2,:), points(3,:))
 
 % visualise data set as maximum projection
 maximumProjected = clatlab.create(processingSize(1:2), backgroundSubtracted.getNativeType());
