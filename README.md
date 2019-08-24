@@ -23,7 +23,8 @@ Download the following files, removed the numbers from their file endings and pu
 * [ij-1.52p.jar](https://sites.imagej.net/Java-8/jars/ij-1.52p.jar-20190701230425)
 * [clij-advanced-filters_-0.6.2.jar](https://github.com/clij/clij-advanced-filters/releases/download/0.6.2/clij-advanced-filters_-0.6.2.jar)
 
-In your matlab script, specify _every_ individual jar file in this folder using `javaaddpath('folder/jarfile.jar').
+In your matlab script, specify _every_ individual jar file in this folder using `javaaddpath('folder/jarfile.jar'). 
+It is recommended to do this in a utility function as [demonstrated here](https://github.com/clij/clatlab/blob/master/src/main/matlab/init_clatlab.m).
 
 ## Example code
 Examples are available in the [matlab](https://github.com/clij/clatlab/blob/master/src/main/matlab/) folder. 
