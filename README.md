@@ -28,10 +28,13 @@ In your matlab script, specify _every_ individual jar file in this folder using 
 ## Example code 
 Clatlab provides two entry points for processing:
 * `clatlab.op` is the entry point to clijs image processing operations. Read the [clij reference](https://clij.github.io/clij-docs/referenceJython) to see which operations are available. Replace `clij.op().` with `clatlab.op` in order to make it run in matlab. For example a Gaussian blur can be applied like this:
+
 ```
 clatlab.op.blur(imageIn, imageOut, Float(5), Float(5));
 ```
+
 * `clatlab.mocl` contains functionality which is accessible in a matlab way, but they are running using clij and OpenCL on the GPU. You can replace matlab code by mocl code:
+
 ```matlab
 % matlab code:
 a = ones(10, 1) * 6 + 8;
@@ -44,6 +47,7 @@ B = mocl.ones(10, 1) * 67 + 6;
 C = A + B;
 c = mocl.pull(C);
 ```
+
 
 ### MOCL Commands
 Following MOCL commands are implemented. Some are not fully tested yet. Work in progress.
