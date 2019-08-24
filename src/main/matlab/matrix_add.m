@@ -10,9 +10,11 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% init CLATLAB and get access to MOCL
 clatlab = init_clatlab();
 mocl = clatlab.mocl;
 
+% create some test data on the GPU
 A = mocl.ones(10, 1) * 6 + 8;
 B = mocl.ones(10, 1) * 67 + 6;
 

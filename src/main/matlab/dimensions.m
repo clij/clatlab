@@ -12,6 +12,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% init CLATLAB and get access to MOCL
 clatlab = init_clatlab();
 mocl = clatlab.mocl;
 

@@ -10,17 +10,21 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% init CLATLAB and get access to MOCL
 clatlab = init_clatlab()
 mocl = clatlab.mocl;
 
+% create some test data
 a = [1 2 3]'
 b = [1 2 3]
 
+% push it to the GPU and pull it back to see if its fine
 A = mocl.push(a).';
 a = mocl.pull(A) 
 B = mocl.push(b);
 b = mocl.pull(B) 
 
+% check sizes and content
 size_a = size(a)
 size_A = mocl.size(A)
 size_b = size(b)
