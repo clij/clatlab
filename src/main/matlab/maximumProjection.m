@@ -13,6 +13,7 @@
 
 % initialize CLATLAB
 clatlab = init_clatlab();
+clop = clatlab.op;
 
 % check on which GPU it's running 
 string(clatlab.getGPUName())
@@ -43,7 +44,7 @@ originalSize = clatlab.op().getSize(input)
 
 % maximum projection
 maximumProjected = clatlab.create(originalSize(1:2));
-clatlab.op().maximumZProjection(input, maximumProjected);
+clop.maximumZProjection(input, maximumProjected);
 
 % pull result back from GPU and show it
 figure
