@@ -12,7 +12,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function clatlab_ = init_clatlab()
-    if (exist('clatlab') == 0)
+    if (exist('net.haesleinhuepf.clatlab.CLATLAB') ~= 8)
         clatlab_folder = '../../../classpath/';
         javaaddpath(strcat(clatlab_folder, 'ij-1.52p.jar'));
         javaaddpath(strcat(clatlab_folder, 'clatlab-0.2.1.jar'));
@@ -31,7 +31,7 @@ function clatlab_ = init_clatlab()
 
         % import and initialize CLATLAB
 
-        clatlab = net.haesleinhuepf.clatlab.CLATLAB.getInstance();
+        
     end
-    clatlab_ = clatlab;
+    clatlab_ = net.haesleinhuepf.clatlab.CLATLAB.getInstance();
 end
