@@ -1,7 +1,8 @@
-% thresholding.m
+% segmentation.m
 %
 % This script shows how to run CLATLAB for GPU accelerated image processing
-% from MATLAB. It applies blurring and tresholding to an image.
+% from MATLAB. It applies blurring, tresholding and connected components
+% labelling to an image.
 %
 % Author: Robert Haase, rhaase@mpi-cbg.de
 %         August 2019
@@ -49,11 +50,13 @@ clop.connectedComponentsLabeling(thresholded, labelled);
 
 % pull result back from GPU and show it next to input
 result = clatlab.pull(labelled);
-lookuptable = rand(op.maximumOfAllPixels(labelled), 3);
+number_of_found_objects = op.maximumOfAllPixels(labelled);
+lookuptable = rand(number_of_found_objects, 3);
 subplot(1,2,2), imshow(result, lookuptable);
 
 % clean up
 input.close();
 blurred.close();
 thresholded.close();
+labelled.close();
 
