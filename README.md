@@ -63,18 +63,18 @@ Following MOCL commands are implemented. Some are not fully tested yet. Work in 
 | plus(a,b)       | c = a + b            | c = a + b            | clij.op().addImages(a, b, c);                   |
 | minus(a,b)      | c = a - b            | c = a - b            | clij.op().subtractImages(a, b, c);              |
 | uminus(a)       | c = -a               | c = -a               | clij.op().invert(a, c);                         |
-| transpose(a)    | c = a.'              | c = a.'              | clij2.op.transposeXY(a, c);                     |
+| transpose(a)    | c = a.'              | c = a.'              | clijx.op.transposeXY(a, c);                     |
 | times(a,b)      | c = a .* b           | c = a .* b           | clij.op().multiplyImages(a, b, c);              |
-| mtimes(a,b)     | c = a * b            | c = a * b            | clij2.op.multiplyMatrix(a, b, c);               |
+| mtimes(a,b)     | c = a * b            | c = a * b            | clijx.op.multiplyMatrix(a, b, c);               |
 | rdivide(a,b)    | c = a ./ b           | c = a ./ b           | clij.op().divideImages(a, b, c);                |
 | ldivide(a,b)    | c = b ./ b           | c = b ./ b           | clij.op().divideImages(b, a, c);                |
-| power(a,b)      | c = a .^ b           | c = a .^ b           | clij2.op.powerImages(a, b, c);                  |
-| lt(a,b)         | c = a < b            | c = a < b            | clij2.op.smaller(a, b, c);                      |
-| gt(a,b)         | c = a > b            | c = a > b            | clij2.op.greater(a, b, c);                      |
-| le(a,b)         | c = a <= b           | c = a <= b           | clij2.op.smallerOrEqual(a, b, c);               |
-| ge(a,b)         | c = a >= b           | c = a >= b           | clij2.op.greaterOrEqual(a, b, c);               |
-| ne(a,b)         | c = a ~= b           | c = a ~= b           | clij2.op.notEqual(a, b, c);                     |
-| eq(a,b)         | c = a == b           | c = a == b           | clij2.op.equal(a, b, c);                        |
+| power(a,b)      | c = a .^ b           | c = a .^ b           | clijx.op.powerImages(a, b, c);                  |
+| lt(a,b)         | c = a < b            | c = a < b            | clijx.op.smaller(a, b, c);                      |
+| gt(a,b)         | c = a > b            | c = a > b            | clijx.op.greater(a, b, c);                      |
+| le(a,b)         | c = a <= b           | c = a <= b           | clijx.op.smallerOrEqual(a, b, c);               |
+| ge(a,b)         | c = a >= b           | c = a >= b           | clijx.op.greaterOrEqual(a, b, c);               |
+| ne(a,b)         | c = a ~= b           | c = a ~= b           | clijx.op.notEqual(a, b, c);                     |
+| eq(a,b)         | c = a == b           | c = a == b           | clijx.op.equal(a, b, c);                        |
 | and(a,b)        | c = a & b            | c = a & b            | clij.op().binaryAnd(a, b, c);                   |
 | or(a,b)         | c = a &#x49; b            | c = a &#x49; b            | clij.op().binaryOr(a, b, c);                    |
 | not(a)          | c = ~b               | c = ~b               | clij.op().binaryNot(a, c);                      |
