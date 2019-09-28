@@ -37,7 +37,7 @@ image = double(image);
 
 % push image to GPU memory
 input = clatlab.push(image);
-originalSize = op().getSize(input);
+originalSize = clop.getSize(input);
 
 
 % maximum projection

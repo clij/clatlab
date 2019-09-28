@@ -12,7 +12,7 @@
 
 % initialize CLATLAB
 clatlab = init_clatlab();
-op = clatlab.op;
+clop = clatlab.op;
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -24,9 +24,6 @@ img = double(img);
 % show input image in a subplot
 figure;
 subplot(1,2,1), imshow(img, [0 255]);
-
-% import and initialize CLATLAB
-clatlab = net.haesleinhuepf.clatlab.CLATLAB.getInstance();
 
 % check on which GPU it's running 
 string(clatlab.getGPUName())
@@ -50,7 +47,7 @@ clop.connectedComponentsLabeling(thresholded, labelled);
 
 % pull result back from GPU and show it next to input
 result = clatlab.pull(labelled);
-number_of_found_objects = op.maximumOfAllPixels(labelled);
+number_of_found_objects = clop.maximumOfAllPixels(labelled);
 lookuptable = rand(number_of_found_objects, 3);
 subplot(1,2,2), imshow(result, lookuptable);
 

@@ -4,8 +4,8 @@ import ij.ImagePlus;
 import net.haesleinhuepf.clij.CLIJ;
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
 import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
-import net.haesleinhuepf.clij2.CLIJ2;
-import net.haesleinhuepf.clij2.utilities.CLIJ2Ops;
+import net.haesleinhuepf.clijx.CLIJx;
+import net.haesleinhuepf.clijx.utilities.CLIJxOps;
 
 /**
  * The CLATLAB gateway.
@@ -17,24 +17,24 @@ public class CLATLAB {
 
 
     private static CLATLAB instance;
-    private static CLIJ2 clij2;
+    private static CLIJx clijx;
     private final CLIJ clij;
 
-    public final CLIJ2Ops op;
+    public final CLIJxOps op;
     public final MOCL mocl;
 
     public CLATLAB() {
         this.clij = CLIJ.getInstance();
-        this.clij2 = new CLIJ2(clij);
-        op = clij2.op;
-        mocl = new MOCL(clij2, clij);
+        this.clijx = new CLIJx(clij);
+        op = clijx.op;
+        mocl = new MOCL(clijx, clij);
     }
 
     private CLATLAB(CLIJ clij) {
         this.clij = clij;
-        this.clij2 = new CLIJ2(clij);
-        op = clij2.op;
-        mocl = new MOCL(clij2, clij);
+        this.clijx = new CLIJx(clij);
+        op = clijx.op;
+        mocl = new MOCL(clijx, clij);
     }
 
     public static CLATLAB getInstance() {
@@ -76,8 +76,8 @@ public class CLATLAB {
     * Deprecated: Use op without brackets instead
     */
     @Deprecated
-    public CLIJ2Ops op() {
-        return clij2.op;
+    public CLIJxOps op() {
+        return clijx.op;
     }
 
     public String getGPUName() {
