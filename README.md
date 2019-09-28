@@ -21,6 +21,7 @@ Download the following files, removed the numbers from their file endings and pu
 * [jocl-2.0.1.jar](https://sites.imagej.net/clij/jars/jocl-2.0.1.jar-20181201212910)
 * [scijava-common-2.77.0.jar](https://sites.imagej.net/Java-8/jars/scijava-common-2.76.1.jar-20181204141527)
 * [ij-1.52p.jar](https://sites.imagej.net/Java-8/jars/ij-1.52p.jar-20190701230425)
+* [imglib2-ij-2.0.0-beta-44.jar](https://sites.imagej.net/Java-8/jars/imglib2-ij-2.0.0-beta-44.jar-20181204141527)
 * [clij-advanced-filters_-0.10.0.jar](https://github.com/clij/clij-advanced-filters/releases/download/0.10.0/clij-advanced-filters_-0.10.0.jar)
 
 In your matlab script, specify _every_ individual jar file in this folder using `javaaddpath('folder/jarfile.jar'). 
