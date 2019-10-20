@@ -14,8 +14,6 @@ import net.haesleinhuepf.clijx.utilities.CLIJxOps;
  *         August 2019
  */
 public class CLATLAB {
-
-
     private static CLATLAB instance;
     private static CLIJx clijx;
     private final CLIJ clij;

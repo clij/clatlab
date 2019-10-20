@@ -5,9 +5,6 @@ import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
 
 /**
  * MOCLBuffer
- * <p>
- * <p>
- * <p>
  * Author: @haesleinhuepf
  * 08 2019
  */
@@ -242,58 +239,4 @@ public class MOCLBuffer {
         mocl.clijx.op.binaryNot(input1.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
-
-
-
-    //+a
-    //uplus(a)
-    //Unary plus
-
-    //a/b
-    //mrdivide(a,b)
-    //Matrix right division
-
-    //a\b
-    //mldivide(a,b)
-    //Matrix left division
-
-
-    //a^b
-    //mpower(a,b)
-    //Matrix power
-
-    //a:b
-    //colon(a,b)
-
-
-    //a:d:b
-    //a:b
-    //colon(a,d,b)
-    //colon(a,b)
-    //Colon operator
-
-    //a'
-    //ctranspose(a)
-    //Complex conjugate transpose
-
-
-    //[a b]
-    //horzcat(a,b,...)
-    //Horizontal concatenation
-
-    //[a; b]
-    //vertcat(a,b,...)
-    //Vertical concatenation
-
-    //a(s1,s2,...sn)
-    //subsref(a,s)
-    //Subscripted reference
-
-    //a(s1,...,sn) = b
-    //subsasgn(a,s,b)
-    //Subscripted assignment
-
-    //b(a)
-    //subsindex(a)
-    //Subscript index
 }

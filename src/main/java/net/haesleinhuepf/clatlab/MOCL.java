@@ -11,9 +11,6 @@ import net.haesleinhuepf.clijx.CLIJx;
 
 /**
  * MOCL
- * <p>
- * <p>
- * <p>
  * Author: @haesleinhuepf
  * 08 2019
  */
