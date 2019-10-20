@@ -6,11 +6,10 @@
 %         October 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+clear;
 
 % initialize CLATLAB
-clatlab = init_clatlab();
-clop = clatlab.op;
+clx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -25,17 +24,17 @@ mat = ramp' * ramp ./ 100
 
 
 % push image to GPU memory
-input1 = clatlab.push(img);
-input2 = clatlab.push(mat);
+input1 = clx.push(img);
+input2 = clx.push(mat);
 
 % reserve memory for output image
-sum_image = clatlab.create(input1);
+sum_image = clx.create(input1);
 
 % add images os GPU
-clatlab.op.addImages(input1, input2, sum_image);
+clx.op.addImages(input1, input2, sum_image);
 
 % pull result image back
-result = clatlab.pull(sum_image);
+result = clx.pull(sum_image);
 imshow(result, [0 255]);
 
 % clean up

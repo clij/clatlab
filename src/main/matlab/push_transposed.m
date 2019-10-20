@@ -10,9 +10,10 @@
 %         August 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear;
 
-clatlab = init_clatlab()
-mocl = clatlab.mocl;
+clx = init_clatlab()
+mocl = clx.mocl;
 
 a = [1 2 3]
 b = [1 2 3]'

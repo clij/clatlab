@@ -7,11 +7,10 @@
 %         October 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+clear;
 
 % initialize CLATLAB
-clatlab = init_clatlab();
-clop = clatlab.op;
+clx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -25,18 +24,18 @@ figure;
 subplot(1,2,1), imshow(img, [0 255]);
 
 % check on which GPU it's running 
-string(clatlab.getGPUName())
+string(clx.getGPUName())
 
 % push image to GPU memory
-input = clatlab.push(img);
+input = clx.push(img);
 % reserve memory for output image
-thresholded = clatlab.create(input);
+thresholded = clx.create(input);
 
 % apply a threshold to it
-clop.automaticThreshold(input, thresholded, "Otsu");
+clx.op.automaticThreshold(input, thresholded, "Otsu");
 
 % pull result back from GPU and show it next to input
-result = clatlab.pull(thresholded);
+result = clx.pull(thresholded);
 subplot(1,2,2), imshow(result, [0 1]);
 
 % clean up

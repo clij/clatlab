@@ -7,11 +7,10 @@
 %         October 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+clear;
 
 % initialize CLATLAB
-clatlab = init_clatlab();
-clop = clatlab.op;
+clx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -21,10 +20,10 @@ img = imread(filename);
 img = double(img);
 
 % push image to GPU memory
-input = clatlab.push(img);
+input = clx.push(img);
 
 % reserve memory for output image
-transformed = clatlab.create(input1);
+transformed = clx.create(input);
 
 % define transform
 import net.imglib2.realtransform.AffineTransform2D;
@@ -37,10 +36,10 @@ at.scale(0.5);
 at.translate([input.getWidth() / 2, input.getHeight() / 2]);
 
 % transform image os GPU
-clatlab.op.affineTransform2D(input, transformed, at);
+clx.op.affineTransform2D(input, transformed, at);
 
 % pull result image back
-result = clatlab.pull(transformed);
+result = clx.pull(transformed);
 imshow(result, [0 255]);
 
 % clean up

@@ -31,13 +31,13 @@ It is recommended to do this in a utility function as [demonstrated here](https:
 Examples are available in the [matlab](https://github.com/clij/clatlab/blob/master/src/main/matlab/) folder. 
  
 Clatlab provides two entry points for processing:
-* `clatlab.op` is the entry point to clijs image processing operations. Read the [clij reference](https://clij.github.io/clij-docs/referenceJython) to see which operations are available. Replace `clij.op().` with `clatlab.op` in order to make it run in matlab. For example a Gaussian blur can be applied like this:
+* `clx.op` is the entry point to clijs image processing operations. Read the [clij reference](https://clij.github.io/clij-docs/referenceJython) to see which operations are available. Replace `clij.op().` with `clx.op` in order to make it run in matlab. For example a Gaussian blur can be applied like this:
 
 ```
-clatlab.op.blur(imageIn, imageOut, Float(5), Float(5));
+clx.op.blur(imageIn, imageOut, Float(5), Float(5));
 ```
 
-* `clatlab.mocl` contains functionality which is accessible in a matlab way, but they are running using clij and OpenCL on the GPU. You can replace matlab code by mocl code:
+* `clx.mocl` contains functionality which is accessible in a matlab way, but they are running using clij and OpenCL on the GPU. You can replace matlab code by mocl code:
 
 ```matlab
 % matlab code:

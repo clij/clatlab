@@ -11,20 +11,21 @@
 %         August 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear; 
 
 % init CLATLAB and get access to MOCL
-clatlab = init_clatlab();
-mocl = clatlab.mocl;
+clx = init_clatlab();
+mocl = clx.mocl;
 
 % 3D MOCL buffers in the GPU
-a = clatlab.push(mocl.push(ones(3,2)))
-b = clatlab.push(mocl.ones(3,2))
+a = clx.push(mocl.push(ones(3,2)))
+b = clx.push(mocl.ones(3,2))
 c = size(ones(3, 2))
 ones(3, 2)
 
 % 2D MOCL buffer in the GPU
-d = clatlab.push(mocl.push(ones(3, 4, 2)))
-e = clatlab.push(mocl.ones(3, 4, 2))
+d = clx.push(mocl.push(ones(3, 4, 2)))
+e = clx.push(mocl.ones(3, 4, 2))
 f = size(ones(3, 4, 2))
 ones(3, 4, 2)
 

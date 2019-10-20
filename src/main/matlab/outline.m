@@ -1,9 +1,9 @@
-% simplePipeline.m
+% outline.m
 %
-% This script shows how to run CLATLAB for GPU accelerated image processing from MATLAB.
+% This script shows how to get the outline of a binary image on the GPU.
 %
 % Author: Robert Haase, rhaase@mpi-cbg.de
-%         August 2019
+%         October 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;
@@ -19,6 +19,7 @@ img = imread(filename);
 img = double(img);
 
 % show input image in a subplot
+figure;
 subplot(1,2,1), imshow(img, [0 255]);
 
 % check on which GPU it's running 
@@ -27,19 +28,26 @@ string(clx.getGPUName())
 % push image to GPU memory
 input = clx.push(img);
 % reserve memory for output image
-output = clx.create(input);
+blurred = clx.create(input);
+thresholded = clx.create(input);
+outline_img = clx.create(input);
 
 % blur the image
 import java.lang.Float;
-clx.op.blur(input, output, Float(5), Float(5));
+clx.op.blur(input, blurred, Float(5), Float(5));
 
-% pull result back from GPU
-result = clx.pull(output);
+% apply a threshold to it
+clx.op.automaticThreshold(blurred, thresholded, "Otsu");
 
-% show result
-subplot(1,2,2), imshow(result, [0 255]);
+% get the outline
+clx.op.binaryEdgeDetection(thresholded, outline_img);
+
+% pull result back from GPU and show it next to input
+result = clx.pull(outline_img);
+subplot(1,2,2), imshow(result, [0 1]);
 
 % clean up
 input.close();
-output.close();
+blurred.close();
+thresholded.close();
 

@@ -1,9 +1,9 @@
-% simplePipeline.m
+% paste.m
 %
-% This script shows how to run CLATLAB for GPU accelerated image processing from MATLAB.
+% This script shows how paste one image into another on the GPU.
 %
 % Author: Robert Haase, rhaase@mpi-cbg.de
-%         August 2019
+%         October 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;
@@ -18,28 +18,28 @@ img = imread(filename);
 % thus, we convert the image to double
 img = double(img);
 
-% show input image in a subplot
-subplot(1,2,1), imshow(img, [0 255]);
-
 % check on which GPU it's running 
 string(clx.getGPUName())
 
 % push image to GPU memory
 input = clx.push(img);
 % reserve memory for output image
-output = clx.create(input);
+result = clx.create([2048, 2048]);
 
-% blur the image
 import java.lang.Float;
-clx.op.blur(input, output, Float(5), Float(5));
+import java.lang.Integer;
+clx.op.set(result, Float(0));
 
-% pull result back from GPU
-result = clx.pull(output);
+% paste the image a couple of times
+clx.op.paste(input, result, Integer(100), Integer(100));
+clx.op.paste(input, result, Integer(1000), Integer(1000));
+clx.op.paste(input, result, Integer(0), Integer(300));
 
-% show result
-subplot(1,2,2), imshow(result, [0 255]);
+% pull result back from GPU and show it next to input
+output = clx.pull(result);
+imshow(output, [0, 255]);
 
 % clean up
 input.close();
-output.close();
+result.close();
 

@@ -9,10 +9,11 @@
 %         August 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear;
 
 % init CLATLAB and get access to MOCL
-clatlab = init_clatlab();
-mocl = clatlab.mocl;
+clx = init_clatlab();
+mocl = clx.mocl;
 
 % an array containing 1
 A = mocl.ones(3)

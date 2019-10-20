@@ -8,11 +8,10 @@
 %         August 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+clear;
 
 % initialize CLATLAB
-clatlab = init_clatlab();
-clop = clatlab.op;
+clx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -26,28 +25,28 @@ figure;
 subplot(1,2,1), imshow(img, [0 255]);
 
 % check on which GPU it's running 
-string(clatlab.getGPUName())
+string(clx.getGPUName())
 
 % push image to GPU memory
-input = clatlab.push(img);
+input = clx.push(img);
 % reserve memory for output image
-blurred = clatlab.create(input);
-thresholded = clatlab.create(input);
-labelled = clatlab.create(input);
+blurred = clx.create(input);
+thresholded = clx.create(input);
+labelled = clx.create(input);
 
 % blur the image
 import java.lang.Float;
-clop.blur(input, blurred, Float(5), Float(5));
+clx.op.blur(input, blurred, Float(5), Float(5));
 
 % apply a threshold to it
-clop.automaticThreshold(blurred, thresholded, "Otsu");
+clx.op.automaticThreshold(blurred, thresholded, "Otsu");
 
 % connected components labelling
-clop.connectedComponentsLabeling(thresholded, labelled);
+clx.op.connectedComponentsLabeling(thresholded, labelled);
 
 % pull result back from GPU and show it next to input
-result = clatlab.pull(labelled);
-number_of_found_objects = clop.maximumOfAllPixels(labelled);
+result = clx.pull(labelled);
+number_of_found_objects = clx.op.maximumOfAllPixels(labelled);
 lookuptable = rand(number_of_found_objects, 3);
 subplot(1,2,2), imshow(result, lookuptable);
 

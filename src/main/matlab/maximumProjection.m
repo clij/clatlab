@@ -10,13 +10,14 @@
 %         August 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear;
 
 % initialize CLATLAB
-clatlab = init_clatlab();
-clop = clatlab.op;
+clx = init_clatlab();
+clop = clx.op;
 
 % check on which GPU it's running 
-string(clatlab.getGPUName())
+string(clx.getGPUName())
 
 % load example data
 filename = '../../test/resources/Nantes_000646.tif';
@@ -39,16 +40,16 @@ image = double(image);
 
 
 % push image to GPU memory
-input = clatlab.push(image);
-originalSize = clatlab.op().getSize(input)
+input = clx.push(image);
+originalSize = clx.op.getSize(input)
 
 % maximum projection
-maximumProjected = clatlab.create(originalSize(1:2));
-clop.maximumZProjection(input, maximumProjected);
+maximumProjected = clx.create(originalSize(1:2));
+clx.op.maximumZProjection(input, maximumProjected);
 
 % pull result back from GPU and show it
 figure
-imshow(clatlab.pull(maximumProjected), [0 1000]);
+imshow(clx.pull(maximumProjected), [0 1000]);
 
 % cleanup
 maximumProjected.close();

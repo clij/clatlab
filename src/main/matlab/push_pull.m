@@ -9,16 +9,17 @@
 %         August 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear;
 
 % multiply element-wise on GPU
-clatlab = init_clatlab();
-mocl = clatlab.mocl
+clx = init_clatlab();
+mocl = clx.mocl
 
 % push some data to the GPU as ClearCL data structure
-A = clatlab.push([1 2 3])
+A = clx.push([1 2 3])
 
 % pull it back
-a = clatlab.pull(A)
+a = clx.pull(A)
 
 % push data to GPU and get it back as MOCL buffer;
 % mocl buffers can partly be treated like matlab arrays,

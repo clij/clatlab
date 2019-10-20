@@ -10,12 +10,13 @@
 %         August 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear;
 
 % initialize CLATLAB
-clatlab = init_clatlab();
+clx = init_clatlab();
 
 % check on which GPU it's running 
-string(clatlab.getGPUName())
+string(clx.getGPUName())
 
 % load example data
 filename = '../../test/resources/Nantes_000646.tif';
@@ -38,13 +39,13 @@ image = double(image);
 
 
 % push image to GPU memory
-input = clatlab.push(image);
+input = clx.push(image);
 
 import java.lang.Float;
 import java.lang.Integer;
 % clatlab.op().blur(input, temp, Float(1), Float(1), Float(1));
 
-originalSize = clatlab.op().getSize(input)
+originalSize = clx.op.getSize(input)
 
 % workflow configuration
 factor = 1.0;
@@ -62,41 +63,41 @@ samplingFactor = [
 ];
 processingSize = double(originalSize) .* samplingFactor;
 
-downsampled = clatlab.create(processingSize);
-backgroundSubtracted = clatlab.create(processingSize);
-blurred = clatlab.create(processingSize);
-thresholded = clatlab.create(processingSize);
-detected = clatlab.create(processingSize);
-masked = clatlab.create(processingSize);
-labelled = clatlab.create(processingSize);
+downsampled = clx.create(processingSize);
+backgroundSubtracted = clx.create(processingSize);
+blurred = clx.create(processingSize);
+thresholded = clx.create(processingSize);
+detected = clx.create(processingSize);
+masked = clx.create(processingSize);
+labelled = clx.create(processingSize);
 % preprocess
-clatlab.op().downsample(input, downsampled, Float(samplingFactor(1)), Float(samplingFactor(2)), Float(samplingFactor(3)));
-clatlab.op().subtractBackground(downsampled, backgroundSubtracted, backgroundSubtractionXY, backgroundSubtractionXY, backgroundSubtractionZ);
-clatlab.op().blur(backgroundSubtracted, blurred, blurXY, blurXY, blurZ);
+clx.op.downsample(input, downsampled, Float(samplingFactor(1)), Float(samplingFactor(2)), Float(samplingFactor(3)));
+clx.op.subtractBackground(downsampled, backgroundSubtracted, backgroundSubtractionXY, backgroundSubtractionXY, backgroundSubtractionZ);
+clx.op.blur(backgroundSubtracted, blurred, blurXY, blurXY, blurZ);
 
 % 3D spot detection
-clatlab.op().detectMaximaBox(blurred, detected, maximumSearch);
+clx.op.detectMaximaBox(blurred, detected, maximumSearch);
 
 % remove spots in background
-clatlab.op().automaticThreshold(blurred, thresholded, thresholdAlgorithm);
-clatlab.op().mask(detected, thresholded, masked);	
-clatlab.op().connectedComponentsLabeling(masked, labelled);
+clx.op.automaticThreshold(blurred, thresholded, thresholdAlgorithm);
+clx.op.mask(detected, thresholded, masked);	
+clx.op.connectedComponentsLabeling(masked, labelled);
 
 % read out spot positions
-numberOfDetectedSpots = double(clatlab.op().maximumOfAllPixels(labelled));
+numberOfDetectedSpots = double(clx.op.maximumOfAllPixels(labelled));
 pointlistSize = [numberOfDetectedSpots double(labelled.getDimension())];
-pointlist = clatlab.create(pointlistSize, input.getNativeType());
-clatlab.op().spotsToPointList(labelled, pointlist);
+pointlist = clx.create(pointlistSize, input.getNativeType());
+clx.op.spotsToPointList(labelled, pointlist);
 
-points = clatlab.pull(pointlist)';
+points = clx.pull(pointlist)';
 figure
 scatter3(points(1,:), points(2,:), points(3,:))
 
 % visualise data set as maximum projection
-maximumProjected = clatlab.create(processingSize(1:2), backgroundSubtracted.getNativeType());
-clatlab.op().maximumZProjection(backgroundSubtracted, maximumProjected);
+maximumProjected = clx.create(processingSize(1:2), backgroundSubtracted.getNativeType());
+clx.op.maximumZProjection(backgroundSubtracted, maximumProjected);
 figure
-imshow(clatlab.pull(maximumProjected), [0 250]);
+imshow(clx.pull(maximumProjected), [0 250]);
 
 maximumProjected.close();
 labelled.close();
