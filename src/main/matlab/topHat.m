@@ -1,10 +1,9 @@
-% blur.m
+% topHat.m
 %
-% This script shows how to run CLATLAB for GPU accelerated image processing
-% from MATLAB. It applies blurring to an image.
+% This script shows how to apply a tophat filter to an image on the GPU.
 %
 % Author: Robert Haase, rhaase@mpi-cbg.de
-%         August 2019
+%         October 2019
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;
@@ -32,8 +31,8 @@ input = clx.push(img);
 blurred = clx.create(input);
 
 % blur the image
-import java.lang.Float;
-clx.op.blur(input, blurred, Float(5), Float(5));
+import java.lang.Integer;
+clx.op.topHatBox(input, blurred, Integer(5), Integer(5), Integer(0));
 
 % pull result back from GPU and show it next to input
 result = clx.pull(blurred);
