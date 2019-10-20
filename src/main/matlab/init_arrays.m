@@ -2,7 +2,9 @@
 %
 % This is a test script for initializing arrays in CPU an GPU memory.
 %
-% In order to make this script run, you need to install CLATLAB
+%
+% In order to make this script run, you need to install CLATLAB an
+% run it from matlab. Tested with Matlab 2019b
 %         https://clij.github.io/clatlab/
 % 
 % Author: Robert Haase, rhaase@mpi-cbg.de

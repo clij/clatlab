@@ -3,6 +3,11 @@
 % This script shows how to run CLATLAB for GPU accelerated image processing
 % from MATLAB. It applies blurring and tresholding to an image.
 %
+%
+% In order to make this script run, you need to install CLATLAB an
+% run it from matlab. Tested with Matlab 2019b
+%         https://clij.github.io/clatlab/
+%
 % Author: Robert Haase, rhaase@mpi-cbg.de
 %         August 2019
 %

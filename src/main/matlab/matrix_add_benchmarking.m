@@ -3,7 +3,9 @@
 % This script shows how to add matrices in the GPU using CLATLAB.
 % It also measures time while adding.
 %
-% In order to make this script run, you need to install CLATLAB
+%
+% In order to make this script run, you need to install CLATLAB an
+% run it from matlab. Tested with Matlab 2019b
 %         https://clij.github.io/clatlab/
 % 
 % Author: Robert Haase, rhaase@mpi-cbg.de

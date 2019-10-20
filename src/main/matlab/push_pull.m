@@ -2,6 +2,11 @@
 %
 % This script shows how to push data to the GPU and back using CLATLAB.
 %
+%
+% In order to make this script run, you need to install CLATLAB an
+% run it from matlab. Tested with Matlab 2019b
+%         https://clij.github.io/clatlab/
+%
 % In order to make this script run, you need to install CLATLAB
 %         https://clij.github.io/clatlab/
 % 

@@ -1,8 +1,6 @@
-% maximumProjection.m
+% reslice.m
 %
-% This script shows how to run CLATLAB for GPU accelerated image processing
-% to draw a maximum projection and visualise it in MATLAB.
-%
+% This script shows how reslice an image stack on the GPU.
 %
 % In order to make this script run, you need to install CLATLAB an
 % run it from matlab. Tested with Matlab 2019b
@@ -16,7 +14,6 @@ clear;
 
 % initialize CLATLAB
 clx = init_clatlab();
-clop = clx.op;
 
 % check on which GPU it's running 
 string(clx.getGPUName())
@@ -43,16 +40,37 @@ image = double(image);
 
 % push image to GPU memory
 input = clx.push(image);
-originalSize = clx.op.getSize(input)
 
-% maximum projection
-maximumProjected = clx.create(originalSize(1:2));
-clx.op.maximumZProjection(input, maximumProjected);
+% allocate memory for result
+maxProjectInput = clx.create([input.getWidth(), input.getHeight()]);
+size = clx.op.getSize(input)
+output = clx.create([size(3), size(2), size(1)]);
+maxProjectOutput = clx.create([output.getWidth(), output.getHeight()]);
 
-% pull result back from GPU and show it
-figure
-imshow(clx.pull(maximumProjected), [0 1000]);
+% reslice 
+clx.op.resliceTop(input, output);
+
+% max project
+clx.op.maximumZProjection(input, maxProjectInput);
+clx.op.maximumZProjection(output, maxProjectOutput);
+
+% pull results from GPU
+maxInput = clx.pull(maxProjectInput);
+maxOutput = clx.pull(maxProjectOutput);
+
+% show results
+figure;
+subplot(1,2,1);
+imshow(maxInput, [100 1000]);
+subplot(1,2,2);
+imshow(maxOutput, [100 1000]);
 
 % cleanup
-maximumProjected.close();
 input.close();
+output.close();
+maxProjectInput.close();
+maxProjectOutput.close();
+
+
+
+

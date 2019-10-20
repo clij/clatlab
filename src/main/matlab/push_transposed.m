@@ -3,7 +3,9 @@
 % This script demonstrates and issue with pushing transposed vectors to
 % the GPU.
 %
-% In order to make this script run, you need to install CLATLAB
+%
+% In order to make this script run, you need to install CLATLAB an
+% run it from matlab. Tested with Matlab 2019b
 %         https://clij.github.io/clatlab/
 % 
 % Author: Robert Haase, rhaase@mpi-cbg.de
