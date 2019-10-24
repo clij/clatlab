@@ -14,7 +14,7 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -27,19 +27,18 @@ img = double(img);
 subplot(1,2,1), imshow(img, [0 255]);
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % push image to GPU memory
-input = clx.push(img);
+input = clijx.pushMat(img);
 % reserve memory for output image
-output = clx.create(input);
+output = clijx.create(input);
 
 % blur the image
-import java.lang.Float;
-clx.op.blur(input, output, Float(5), Float(5));
+clijx.blur(input, output, 5, 5);
 
 % pull result back from GPU
-result = clx.pull(output);
+result = clijx.pullMat(output);
 
 % show result
 subplot(1,2,2), imshow(result, [0 255]);

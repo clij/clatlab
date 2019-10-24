@@ -15,10 +15,10 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % load example data
 filename = '../../test/resources/Nantes_000646.tif';
@@ -38,28 +38,27 @@ end
 image = double(image);
 
 % push image to GPU memory
-input = clx.push(image);
-originalSize = clx.op.getSize(input);
+input = clijx.pushMat(image);
+originalSize = clijx.getSize(input);
 
 
 % maximum projection
-maximumProjected = clx.create(originalSize(1:2));
-clx.op.maximumZProjection(input, maximumProjected);
+maximumProjected = clijx.create(originalSize(1:2));
+clijx.maximumZProjection(input, maximumProjected);
 figure;
-subplot(1,2,1), imshow(clx.pull(maximumProjected), [0 1000]);
+subplot(1,2,1), imshow(clijx.pullMat(maximumProjected), [0 1000]);
 
 % background subtraction
-backgroundSubtracted = clx.create(input);
-import java.lang.Float;
-sigmaXY = Float(5);
-sigmaZ = Float(1);
-clx.op.subtractBackground(input, backgroundSubtracted, sigmaXY, sigmaXY, sigmaZ);
+backgroundSubtracted = clijx.create(input);
+sigmaXY = 5;
+sigmaZ = 1;
+clijx.subtractBackground(input, backgroundSubtracted, sigmaXY, sigmaXY, sigmaZ);
 
 % maximum projection
-clx.op.maximumZProjection(backgroundSubtracted, maximumProjected);
+clijx.maximumZProjection(backgroundSubtracted, maximumProjected);
 
 % pull result back from GPU and show it
-subplot(1,2,2), imshow(clx.pull(maximumProjected), [0 200]);
+subplot(1,2,2), imshow(clijx.pullMat(maximumProjected), [0 200]);
 
 % cleanup
 maximumProjected.close();

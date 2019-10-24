@@ -17,14 +17,14 @@
 clear;
 
 % multiply element-wise on GPU
-clx = init_clatlab();
-mocl = clx.mocl
+clijx = init_clatlab();
+mocl = clijx.mocl
 
 % push some data to the GPU as ClearCL data structure
-A = clx.push([1 2 3])
+A = clijx.pushMat([1 2 3])
 
 % pull it back
-a = clx.pull(A)
+a = clijx.pullMat(A)
 
 % push data to GPU and get it back as MOCL buffer;
 % mocl buffers can partly be treated like matlab arrays,

@@ -14,8 +14,8 @@
 clear;
 
 % init CLATLAB and get access to MOCL
-clx = init_clatlab();
-mocl = clx.mocl;
+clijx = init_clatlab();
+mocl = clijx.mocl;
 
 % create some test data on the GPU
 A = mocl.ones(10, 1) * 6 + 8;

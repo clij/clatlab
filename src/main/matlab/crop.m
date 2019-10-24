@@ -14,7 +14,7 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -24,20 +24,20 @@ img = imread(filename);
 img = double(img);
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % push image to GPU memory
-input = clx.push(img);
+input = clijx.pushMat(img);
 % reserve memory for output image
-output = clx.create([50, 50]);
+output = clijx.create([50, 50]);
 
 import java.lang.Integer;
 
 % paste the image a couple of times
-clx.op.crop(input, output, Integer(20), Integer(20));
+clijx.crop(input, output, 20, 20);
 
 % pull result back from GPU and show it next to input
-result = clx.pull(output);
+result = clijx.pullMat(output);
 imshow(result, [0, 255]);
 
 % clean up

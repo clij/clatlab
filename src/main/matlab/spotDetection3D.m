@@ -15,10 +15,10 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % load example data
 filename = '../../test/resources/Nantes_000646.tif';
@@ -41,21 +41,17 @@ image = double(image);
 
 
 % push image to GPU memory
-input = clx.push(image);
+input = clijx.pushMat(image);
 
-import java.lang.Float;
-import java.lang.Integer;
-% clatlab.op().blur(input, temp, Float(1), Float(1), Float(1));
-
-originalSize = clx.op.getSize(input)
+originalSize = clijx.getSize(input)
 
 % workflow configuration
 factor = 1.0;
-backgroundSubtractionXY = Float(5);
-backgroundSubtractionZ = Float(0);
-blurXY = Float(3);
-blurZ = Float(3);
-maximumSearch = Integer(1);
+backgroundSubtractionXY = 5;
+backgroundSubtractionZ = 0;
+blurXY = 3;
+blurZ = 3;
+maximumSearch = 1;
 thresholdAlgorithm = 'Otsu';
 
 samplingFactor = [
@@ -65,41 +61,41 @@ samplingFactor = [
 ];
 processingSize = double(originalSize) .* samplingFactor;
 
-downsampled = clx.create(processingSize);
-backgroundSubtracted = clx.create(processingSize);
-blurred = clx.create(processingSize);
-thresholded = clx.create(processingSize);
-detected = clx.create(processingSize);
-masked = clx.create(processingSize);
-labelled = clx.create(processingSize);
+downsampled = clijx.create(processingSize);
+backgroundSubtracted = clijx.create(processingSize);
+blurred = clijx.create(processingSize);
+thresholded = clijx.create(processingSize);
+detected = clijx.create(processingSize);
+masked = clijx.create(processingSize);
+labelled = clijx.create(processingSize);
 % preprocess
-clx.op.downsample(input, downsampled, Float(samplingFactor(1)), Float(samplingFactor(2)), Float(samplingFactor(3)));
-clx.op.subtractBackground(downsampled, backgroundSubtracted, backgroundSubtractionXY, backgroundSubtractionXY, backgroundSubtractionZ);
-clx.op.blur(backgroundSubtracted, blurred, blurXY, blurXY, blurZ);
+clijx.downsample(input, downsampled, samplingFactor(1), samplingFactor(2), samplingFactor(3));
+clijx.subtractBackground(downsampled, backgroundSubtracted, backgroundSubtractionXY, backgroundSubtractionXY, backgroundSubtractionZ);
+clijx.blur(backgroundSubtracted, blurred, blurXY, blurXY, blurZ);
 
 % 3D spot detection
-clx.op.detectMaximaBox(blurred, detected, maximumSearch);
+clijx.detectMaximaBox(blurred, detected, maximumSearch);
 
 % remove spots in background
-clx.op.automaticThreshold(blurred, thresholded, thresholdAlgorithm);
-clx.op.mask(detected, thresholded, masked);	
-clx.op.connectedComponentsLabeling(masked, labelled);
+clijx.automaticThreshold(blurred, thresholded, thresholdAlgorithm);
+clijx.mask(detected, thresholded, masked);	
+clijx.connectedComponentsLabeling(masked, labelled);
 
 % read out spot positions
-numberOfDetectedSpots = double(clx.op.maximumOfAllPixels(labelled));
+numberOfDetectedSpots = double(clijx.maximumOfAllPixels(labelled));
 pointlistSize = [numberOfDetectedSpots double(labelled.getDimension())];
-pointlist = clx.create(pointlistSize, input.getNativeType());
-clx.op.spotsToPointList(labelled, pointlist);
+pointlist = clijx.create(pointlistSize, input.getNativeType());
+clijx.spotsToPointList(labelled, pointlist);
 
-points = clx.pull(pointlist)';
+points = clijx.pullMat(pointlist)';
 figure
 scatter3(points(1,:), points(2,:), points(3,:))
 
 % visualise data set as maximum projection
 maximumProjected = clx.create(processingSize(1:2), backgroundSubtracted.getNativeType());
-clx.op.maximumZProjection(backgroundSubtracted, maximumProjected);
+clijx.maximumZProjection(backgroundSubtracted, maximumProjected);
 figure
-imshow(clx.pull(maximumProjected), [0 250]);
+imshow(clijx.pullMat(maximumProjected), [0 250]);
 
 maximumProjected.close();
 labelled.close();
@@ -109,3 +105,11 @@ blurred.close();
 thresholded.close();
 downsampled.close();
 input.close();
+
+x = points(1,:);
+y = points(2,:);
+z = points(3,:);
+tri = delaunay(x, y, z)
+%trimesh(tri, x, y, z);
+trisurf(tri, x, y, z,'FaceAlpha',0.3)
+

@@ -15,8 +15,8 @@
 clear;
 
 % init CLATLAB and get access to MOCL
-clx = init_clatlab()
-mocl = clx.mocl;
+clijx = init_clatlab()
+mocl = clijx.mocl;
 
 % create some test data
 a = [1 2 3 4 5 6]' * [7 3 4 5 6 7];

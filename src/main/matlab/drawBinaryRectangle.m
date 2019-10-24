@@ -13,23 +13,22 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % reserve memory for output image
-binary_img = clx.create([100 100]);
+binary_img = clijx.create([100 100]);
 
 % blur the image
-import java.lang.Float;
-clx.op.set(binary_img, Float(0));
+clijx.set(binary_img, 0);
 
 % draw a rectangle
-clx.op.drawBox(binary_img, Float(10), Float(15), Float(20), Float(30));
+clijx.drawBox(binary_img, 10, 15, 20, 30);
 
 % pull result back from GPU and show it next to input
-result = clx.pull(binary_img);
+result = clijx.pullMat(binary_img);
 imshow(result, [0 1]);
 
 % clean up

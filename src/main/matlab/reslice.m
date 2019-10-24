@@ -13,10 +13,10 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % load example data
 filename = '../../test/resources/Nantes_000646.tif';
@@ -39,24 +39,24 @@ image = double(image);
 
 
 % push image to GPU memory
-input = clx.push(image);
+input = clijx.pushMat(image);
 
 % allocate memory for result
-maxProjectInput = clx.create([input.getWidth(), input.getHeight()]);
-size = clx.op.getSize(input)
-output = clx.create([size(3), size(2), size(1)]);
-maxProjectOutput = clx.create([output.getWidth(), output.getHeight()]);
+maxProjectInput = clijx.create([input.getWidth(), input.getHeight()]);
+size = clijx.getSize(input)
+output = clijx.create([size(3), size(2), size(1)]);
+maxProjectOutput = clijx.create([output.getWidth(), output.getHeight()]);
 
 % reslice 
-clx.op.resliceTop(input, output);
+clijx.resliceTop(input, output);
 
 % max project
-clx.op.maximumZProjection(input, maxProjectInput);
-clx.op.maximumZProjection(output, maxProjectOutput);
+clijx.maximumZProjection(input, maxProjectInput);
+clijx.maximumZProjection(output, maxProjectOutput);
 
 % pull results from GPU
-maxInput = clx.pull(maxProjectInput);
-maxOutput = clx.pull(maxProjectOutput);
+maxInput = clijx.pullMat(maxProjectInput);
+maxOutput = clijx.pullMat(maxProjectOutput);
 
 % show results
 figure;

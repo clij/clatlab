@@ -15,7 +15,7 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -29,43 +29,39 @@ figure;
 subplot(1,2,1), imshow(img, [0 255]);
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % push image to GPU
-input = clx.push(img);
+input = clijx.pushMat(img);
 
 % blur a bit and detect maxima
-import java.lang.Float;
-blurred = clx.create(input);
-detected_spots = clx.create(input);
+blurred = clijx.create(input);
+detected_spots = clijx.create(input);
+clijx.blur(input, blurred, 15, 15, 0);
 
-clx.op.blur(input, blurred, Float(15), Float(15), Float(0));
-
-string(blurred)
-
-import java.lang.Integer;
-clx.op.detectMaximaBox(blurred, detected_spots, Integer(10));
+% spot detection
+clijx.detectMaximaBox(blurred, detected_spots, 10);
 
 figure;
-imshow(clx.pull(detected_spots), [0 1]);
+imshow(clijx.pullMat(detected_spots), [0 1]);
 
 % convert spots image to spot list
-number_of_spots = clx.op.sumPixels(detected_spots);
-pointlist = clx.create([number_of_spots, 2]);
-clx.op.spotsToPointList(detected_spots, pointlist);
+number_of_spots = clijx.sumPixels(detected_spots);
+pointlist = clijx.create([number_of_spots, 2]);
+clijx.spotsToPointList(detected_spots, pointlist);
 
-distance_matrix = clx.create([number_of_spots, number_of_spots]);
-clx.op.generateDistanceMatrix(pointlist, pointlist, distance_matrix);
+distance_matrix = clijx.create([number_of_spots, number_of_spots]);
+clijx.generateDistanceMatrix(pointlist, pointlist, distance_matrix);
 
 n_closest_points = 5;
-closestPointsIndices = clx.create([number_of_spots, n_closest_points]);
+closestPointsIndices = clijx.create([number_of_spots, n_closest_points]);
 
-clx.op.nClosestPoints(distance_matrix, closestPointsIndices);
+clijx.nClosestPoints(distance_matrix, closestPointsIndices);
 
-pointCoodinates = clx.pull(pointlist);
-pointIndices = clx.pull(closestPointsIndices);
+pointCoodinates = clijx.pullMat(pointlist);
+pointIndices = clijx.pullMat(closestPointsIndices);
 
-mesh = clx.create(input);
+mesh = clijx.create(input);
 
 pointDims = size(pointIndices)
 
@@ -79,13 +75,13 @@ for p = [1:pointDims(1)]
 		y2 = pointCoodinates(pointIndex, 2);
 
 		thickness = 2;
-		clx.op.drawLine(mesh, Float(x1), Float(y1), Float(0), Float(x2), Float(y2), Float(0), Float(thickness));
+		clijx.drawLine(mesh, x1, y1, 0, x2, y2, 0, thickness);
     end
 end
 
 % show result
 figure;
-imshow(clx.pull(mesh), [0, 1]);
+imshow(clijx.pullMat(mesh), [0, 1]);
 
 mesh.close();
 pointlist.close();

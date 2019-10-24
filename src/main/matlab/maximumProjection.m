@@ -15,11 +15,11 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
-clop = clx.op;
+clijx = init_clatlab();
+clop = clijx.op;
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % load example data
 filename = '../../test/resources/Nantes_000646.tif';
@@ -42,16 +42,16 @@ image = double(image);
 
 
 % push image to GPU memory
-input = clx.push(image);
-originalSize = clx.op.getSize(input)
+input = clijx.pushMat(image);
+originalSize = clijx.getSize(input)
 
 % maximum projection
-maximumProjected = clx.create(originalSize(1:2));
-clx.op.maximumZProjection(input, maximumProjected);
+maximumProjected = clijx.create(originalSize(1:2));
+clijx.maximumZProjection(input, maximumProjected);
 
 % pull result back from GPU and show it
 figure
-imshow(clx.pull(maximumProjected), [0 1000]);
+imshow(clijx.pullMat(maximumProjected), [0 1000]);
 
 % cleanup
 maximumProjected.close();

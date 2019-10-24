@@ -15,7 +15,7 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -29,27 +29,27 @@ figure;
 subplot(1,2,1), imshow(img, [0 255]);
 
 % check on which GPU it's running 
-string(clx.getGPUName())
+string(clijx.getGPUName())
 
 % push image to GPU
-input = clx.push(img);
+input = clijx.pushMat(img);
 
-meanIntensity = clx.op.sumPixels(input) / input.getWidth() / input.getHeight();
+meanIntensity = clijx.sumPixels(input) / input.getWidth() / input.getHeight();
 string("Mean intensity of all pixels: " + meanIntensity)
 
 
 % reserve memory for a mask and masked image, same size and type as input
-mask = clx.create(input);
-masked = clx.create(input);
+mask = clijx.create(input);
+masked = clijx.create(input);
 
 % apply threshold method on GPU
-clx.op.automaticThreshold(input, mask, "Otsu");
+clijx.automaticThreshold(input, mask, "Otsu");
 
 % mask the image
-clx.op.mask(input, mask, masked);
+clijx.mask(input, mask, masked);
 
 % determine mean intensity of masked area:
-meanIntensity = clx.op.sumPixels(masked) / input.getWidth() / input.getHeight();
+meanIntensity = clijx.sumPixels(masked) / input.getWidth() / input.getHeight();
 string("Mean intensity of masked pixels: " + meanIntensity)
 
 % clean up

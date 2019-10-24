@@ -14,7 +14,7 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -24,10 +24,10 @@ img = imread(filename);
 img = double(img);
 
 % push image to GPU memory
-input = clx.push(img);
+input = clijx.pushMat(img);
 
 % reserve memory for output image
-transformed = clx.create(input);
+transformed = clijx.create(input);
 
 % define transform
 import net.imglib2.realtransform.AffineTransform2D;
@@ -40,10 +40,10 @@ at.scale(0.5);
 at.translate([input.getWidth() / 2, input.getHeight() / 2]);
 
 % transform image os GPU
-clx.op.affineTransform2D(input, transformed, at);
+clijx.affineTransform2D(input, transformed, at);
 
 % pull result image back
-result = clx.pull(transformed);
+result = clijx.pullMat(transformed);
 imshow(result, [0 255]);
 
 % clean up

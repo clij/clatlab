@@ -14,8 +14,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;
 
-clx = init_clatlab()
-mocl = clx.mocl;
+clijx = init_clatlab()
+mocl = clijx.mocl;
 
 a = [1 2 3]
 b = [1 2 3]'

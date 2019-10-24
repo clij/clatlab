@@ -14,8 +14,8 @@
 clear;
 
 % init CLATLAB and get access to MOCL
-clx = init_clatlab();
-mocl = clx.mocl;
+clijx = init_clatlab();
+mocl = clijx.mocl;
 
 % an array containing 1
 A = mocl.ones(3)

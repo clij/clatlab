@@ -7,12 +7,12 @@
 	<parent>
 		<groupId>net.haesleinhuepf</groupId>
 		<artifactId>clij-parent-pom</artifactId>
-		<version>1.3.0</version>
+		<version>1.4.0</version>
 	</parent>
 
 	<groupId>net.haesleinhuepf</groupId>
 	<artifactId>clatlab</artifactId>
-	<version>0.3.0</version>
+	<version>0.4.0</version>
 	<name>CLATLAB</name>
 	<description>CLIJ bridge to Matlab</description>
 
@@ -27,12 +27,12 @@
 		<dependency>
 			<groupId>net.haesleinhuepf</groupId>
 			<artifactId>clij-core</artifactId>
-			<version>1.3.0</version>
+			<version>1.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>net.haesleinhuepf</groupId>
 			<artifactId>clij-advanced-filters_</artifactId>
-			<version>0.10.0</version>
+			<version>0.11.0</version>
 		</dependency>
 	</dependencies>
 	
