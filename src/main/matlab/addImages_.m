@@ -13,7 +13,7 @@
 clear;
 
 % initialize CLATLAB
-clx = init_clatlab();
+clijx = init_clatlab();
 
 % load example data
 filename = '../../test/resources/blobs.tif';
@@ -28,17 +28,17 @@ mat = ramp' * ramp ./ 100
 
 
 % push image to GPU memory
-input1 = clx.push(img);
-input2 = clx.push(mat);
+input1 = clijx.pushMat(img);
+input2 = clijx.pushMat(mat);
 
 % reserve memory for output image
-sum_image = clx.create(input1);
+sum_image = clijx.create(input1);
 
 % add images os GPU
-clx.op.addImages(input1, input2, sum_image);
+clijx.addImages(input1, input2, sum_image);
 
 % pull result image back
-result = clx.pull(sum_image);
+result = clijx.pullMat(sum_image);
 imshow(result, [0 255]);
 
 % clean up
