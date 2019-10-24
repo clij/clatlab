@@ -39,14 +39,11 @@ blurred = clijx.create(input);
 thresholded = clijx.create(input);
 labelled = clijx.create(input);
 
-% blur the image
-clijx.blur(input, blurred, 5, 5);
-
-% apply a threshold to it
+% blur, threshold and label the image
+clijx.blur(input, blurred, 5, 5, 0);
 clijx.automaticThreshold(blurred, thresholded, "Otsu");
-
-% connected components labelling
 clijx.connectedComponentsLabeling(thresholded, labelled);
+
 
 % pull result back from GPU and show it next to input
 result = clijx.pullMat(labelled);
