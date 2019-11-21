@@ -33,13 +33,13 @@ It is recommended to do this in a utility function as [demonstrated here](https:
 Examples are available in the [matlab](https://github.com/clij/clatlab/blob/master/src/main/matlab/) folder. 
  
 Clatlab provides two entry points for processing:
-* `clx.op` is the entry point to clijs image processing operations. Read the [clij reference](https://clij.github.io/clij-docs/referenceJython) to see which operations are available. Replace `clij.op().` with `clx.op` in order to make it run in matlab. For example a Gaussian blur can be applied like this:
+* `clijx` is the entry point to clijs image processing operations. Read the [clij reference](https://clij.github.io/clij-docs/referenceJython) to see which operations are available. Replace `clij.op().` with `clijx` in order to make it run in matlab. For example a Gaussian blur can be applied like this:
 
 ```
-clx.op.blur(imageIn, imageOut, Float(5), Float(5));
+clijx.op.blur(imageIn, imageOut, Float(5), Float(5));
 ```
 
-* `clx.mocl` contains functionality which is accessible in a matlab way, but they are running using clij and OpenCL on the GPU. You can replace matlab code by mocl code:
+* `clijx.mocl` contains functionality which is accessible in a matlab way, but they are running using clij and OpenCL on the GPU. You can replace matlab code by mocl code:
 
 ```matlab
 % matlab code:
@@ -60,32 +60,32 @@ Following MOCL commands are implemented. Some are not fully tested yet. Work in 
 
 | Command         | Matlab expresson     | mocl expression      | clij/clatlab counter part                       |
 | --------------- | -------------------- | -------------------- | ----------------------------------------------- |
-| push(a)         |                      | c = mocl.push(a)     | c = clij.push(a);                               |
-| pull(a)         |                      | c = mocl.pull(a)     | c = clij.pull(a);                               |
-| plus(a,b)       | c = a + b            | c = a + b            | clij.op().addImages(a, b, c);                   |
-| minus(a,b)      | c = a - b            | c = a - b            | clij.op().subtractImages(a, b, c);              |
-| uminus(a)       | c = -a               | c = -a               | clij.op().invert(a, c);                         |
-| transpose(a)    | c = a.'              | c = a.'              | clijx.op.transposeXY(a, c);                     |
-| times(a,b)      | c = a .* b           | c = a .* b           | clij.op().multiplyImages(a, b, c);              |
-| mtimes(a,b)     | c = a * b            | c = a * b            | clijx.op.multiplyMatrix(a, b, c);               |
-| rdivide(a,b)    | c = a ./ b           | c = a ./ b           | clij.op().divideImages(a, b, c);                |
-| ldivide(a,b)    | c = b ./ b           | c = b ./ b           | clij.op().divideImages(b, a, c);                |
-| power(a,b)      | c = a .^ b           | c = a .^ b           | clijx.op.powerImages(a, b, c);                  |
-| lt(a,b)         | c = a < b            | c = a < b            | clijx.op.smaller(a, b, c);                      |
-| gt(a,b)         | c = a > b            | c = a > b            | clijx.op.greater(a, b, c);                      |
-| le(a,b)         | c = a <= b           | c = a <= b           | clijx.op.smallerOrEqual(a, b, c);               |
-| ge(a,b)         | c = a >= b           | c = a >= b           | clijx.op.greaterOrEqual(a, b, c);               |
-| ne(a,b)         | c = a ~= b           | c = a ~= b           | clijx.op.notEqual(a, b, c);                     |
-| eq(a,b)         | c = a == b           | c = a == b           | clijx.op.equal(a, b, c);                        |
-| and(a,b)        | c = a & b            | c = a & b            | clij.op().binaryAnd(a, b, c);                   |
+| push(a)         |                      | c = mocl.push(a)     | c = clijx.pushMat(a);                               |
+| pull(a)         |                      | c = mocl.pull(a)     | c = clijx.pullMat(a);                               |
+| plus(a,b)       | c = a + b            | c = a + b            | clijx.addImages(a, b, c);                   |
+| minus(a,b)      | c = a - b            | c = a - b            | clijx.subtractImages(a, b, c);              |
+| uminus(a)       | c = -a               | c = -a               | clijx.invert(a, c);                         |
+| transpose(a)    | c = a.'              | c = a.'              | clijx.transposeXY(a, c);                     |
+| times(a,b)      | c = a .* b           | c = a .* b           | clijx.multiplyImages(a, b, c);              |
+| mtimes(a,b)     | c = a * b            | c = a * b            | clijx.multiplyMatrix(a, b, c);               |
+| rdivide(a,b)    | c = a ./ b           | c = a ./ b           | clijx.divideImages(a, b, c);                |
+| ldivide(a,b)    | c = b ./ b           | c = b ./ b           | clijx.divideImages(b, a, c);                |
+| power(a,b)      | c = a .^ b           | c = a .^ b           | clijx.powerImages(a, b, c);                  |
+| lt(a,b)         | c = a < b            | c = a < b            | clijx.smaller(a, b, c);                      |
+| gt(a,b)         | c = a > b            | c = a > b            | clijx.greater(a, b, c);                      |
+| le(a,b)         | c = a <= b           | c = a <= b           | clijx.smallerOrEqual(a, b, c);               |
+| ge(a,b)         | c = a >= b           | c = a >= b           | clijx.greaterOrEqual(a, b, c);               |
+| ne(a,b)         | c = a ~= b           | c = a ~= b           | clijx.notEqual(a, b, c);                     |
+| eq(a,b)         | c = a == b           | c = a == b           | clijx.equal(a, b, c);                        |
+| and(a,b)        | c = a & b            | c = a & b            | clijx.binaryAnd(a, b, c);                   |
 | or(a,b)         | c = a &#x49; b            | c = a &#x49; b            | clij.op().binaryOr(a, b, c);                    |
-| not(a)          | c = ~b               | c = ~b               | clij.op().binaryNot(a, c);                      |
-| imhist(a)       | [c,x] = imhist(a)    | c = mocl.imhist(a)   | clij.op().fillHistogram(a, c);                  |
-| fliplr(a)       | c = fliplr(a)        | c = mocl.fliplr(a)   | clij.op().flip(a, c, true, false, false);       |
+| not(a)          | c = ~b               | c = ~b               | clijx.binaryNot(a, c);                      |
+| imhist(a)       | [c,x] = imhist(a)    | c = mocl.imhist(a)   | clijx.fillHistogram(a, c);                  |
+| fliplr(a)       | c = fliplr(a)        | c = mocl.fliplr(a)   | clijx.flip(a, c, true, false, false);       |
 | imRead(a)       | c = imread(a)        | c = imread(a)        |                                                 |
-| min(a)          | c = min(a)           | c = mocl.min(a)      | c = clij.op().minimumOfAllPixels(a);            |
-| max(a)          | c = max(a)           | c = mocl.max(a)      | c = clij.op().maximumOfAllPixels(a);            |
-| mean(a)         | c = mean(a)          | c = mocl.mean(a)     | c = clij.op().meanOfAllPixels(a);               |
+| min(a)          | c = min(a)           | c = mocl.min(a)      | c = clijx.minimumOfAllPixels(a);            |
+| max(a)          | c = max(a)           | c = mocl.max(a)      | c = clijx.maximumOfAllPixels(a);            |
+| mean(a)         | c = mean(a)          | c = mocl.mean(a)     | c = clijx.meanOfAllPixels(a);               |
 | ones(a)         | c = ones(a)          | c = mocl.ones(a)     |                                                 |
 | zeros(a)        | c = zeros(a)         | c = mocl.zeros(a)    |                                                 |
 | size(a)         | c = size(a)          | c = mocl.size(a)     |                                                 |
