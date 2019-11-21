@@ -38,15 +38,16 @@ input = clijx.pushMat(img);
 blurred = clijx.create(input);
 thresholded = clijx.create(input);
 labelled = clijx.create(input);
+labelled_without_edges = clijx.create(input);
 
 % blur, threshold and label the image
 clijx.blur(input, blurred, 5, 5, 0);
 clijx.automaticThreshold(blurred, thresholded, "Otsu");
 clijx.connectedComponentsLabeling(thresholded, labelled);
-
+clijx.excludeLabelsOnEdges(labelled, labelled_without_edges);
 
 % pull result back from GPU and show it next to input
-result = clijx.pullMat(labelled);
+result = clijx.pullMat(labelled_without_edges);
 number_of_found_objects = clijx.maximumOfAllPixels(labelled);
 lookuptable = rand(number_of_found_objects, 3);
 subplot(1,2,2), imshow(result, lookuptable);
@@ -56,4 +57,6 @@ input.close();
 blurred.close();
 thresholded.close();
 labelled.close();
+
+
 

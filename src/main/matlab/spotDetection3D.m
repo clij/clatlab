@@ -92,7 +92,7 @@ figure
 scatter3(points(1,:), points(2,:), points(3,:))
 
 % visualise data set as maximum projection
-maximumProjected = clx.create(processingSize(1:2), backgroundSubtracted.getNativeType());
+maximumProjected = clijx.create(processingSize(1:2), backgroundSubtracted.getNativeType());
 clijx.maximumZProjection(backgroundSubtracted, maximumProjected);
 figure
 imshow(clijx.pullMat(maximumProjected), [0 250]);
@@ -111,5 +111,6 @@ y = points(2,:);
 z = points(3,:);
 tri = delaunay(x, y, z)
 %trimesh(tri, x, y, z);
+figure;
 trisurf(tri, x, y, z,'FaceAlpha',0.3)
 
