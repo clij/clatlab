@@ -15,26 +15,8 @@
 
 function clatlab_ = init_clatlab()
     if (exist('net.haesleinhuepf.clatlab.CLATLAB') ~= 8)
-        clatlab_folder = '../../../classpath/';
-        javaaddpath(strcat(clatlab_folder, 'ij-1.52p.jar'));
-        javaaddpath(strcat(clatlab_folder, 'clatlab-0.5.0.jar'));
-        javaaddpath(strcat(clatlab_folder, 'bridj-0.7.0.jar'));
-        javaaddpath(strcat(clatlab_folder, 'clij_-1.4.2.jar'));
-        javaaddpath(strcat(clatlab_folder, 'clij-clearcl-0.10.1.jar'));
-        javaaddpath(strcat(clatlab_folder, 'clij-core-1.4.2.jar'));
-        javaaddpath(strcat(clatlab_folder, 'clij-coremem-0.6.0.jar'));
-        javaaddpath(strcat(clatlab_folder, 'clij-legacy_-0.1.0.jar'));
-        javaaddpath(strcat(clatlab_folder, 'imagej-common-0.28.2.jar'));
-        javaaddpath(strcat(clatlab_folder, 'imglib2-5.6.3.jar'));
-        javaaddpath(strcat(clatlab_folder, 'imglib2-realtransform-2.1.0.jar'));
-        javaaddpath(strcat(clatlab_folder, 'jocl-2.0.1.jar'));
-        javaaddpath(strcat(clatlab_folder, 'scijava-common-2.76.1.jar'));
-        javaaddpath(strcat(clatlab_folder, 'imglib2-ij-2.0.0-beta-44.jar'));
-        javaaddpath(strcat(clatlab_folder, 'clij-advanced-filters_-0.12.4.jar'));
-        javaaddpath(strcat(clatlab_folder, 'fiji-lib-2.1.2.jar'));
-        % import and initialize CLATLAB
-
-        
+		jar_location = strrep(mfilename('fullpath'), 'init_clatlab', 'clatlab-0.6.0-jar-with-dependencies.jar');
+        javaaddpath(jar_location);        
     end
     clatlab_ = net.haesleinhuepf.clatlab.CLATLAB.getInstance();
 end

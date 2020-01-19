@@ -7,27 +7,16 @@ clatlab is a bridge between [Matlab](https://de.mathworks.com/products/matlab.ht
 Right now, this is very preliminary.
 
 ## Installation
-Download the following files, removed the numbers from their file endings and put them all in a folder:
-* [clatlab-0.5.0.jar](https://github.com/clij/clatlab/releases/download/0.5.0/clatlab-0.5.0.jar)
-* [bridj-0.7.0.jar](https://sites.imagej.net/clij/jars/bridj-0.7.0.jar-20181201213334)
-* [clij_1.4.2.jar](https://github.com/clij/clij/releases/download/1.4.2/clij_-1.4.2.jar)
-* [clij-clearcl-0.10.1.jar](https://github.com/clij/clij/releases/download/1.4.2/clij-clearcl-0.10.1.jar)
-* [clij-core-1.4.2.jar](https://github.com/clij/clij/releases/download/1.4.2/clij-core-1.4.2.jar)
-* [clij-coremem-0.6.0.jar](https://github.com/clij/clij/releases/download/1.4.0/clij-coremem-0.6.0.jar)
-* [clij-legacy_-0.1.0.jar](https://github.com/clij/clij-legacy/releases/download/0.1.0/clij-legacy_-0.1.0.jar)
-* [imagej-common-0.28.2.jar](https://sites.imagej.net/Java-8/jars/imagej-common-0.28.2.jar-20190516211613)
-* [imglib2-5.6.3.jar](https://sites.imagej.net/Java-8/jars/imglib2-5.6.3.jar-20181204141527)
-* [imglib2-realtransform-2.1.0.jar](https://sites.imagej.net/Java-8/jars/imglib2-realtransform-2.1.0.jar-20181204141527)
-* [jocl-2.0.1.jar](https://sites.imagej.net/clij/jars/jocl-2.0.1.jar-20181201212910)
-* [scijava-common-2.77.0.jar](https://sites.imagej.net/Java-8/jars/scijava-common-2.76.1.jar-20181204141527)
-* [ij-1.52p.jar](https://sites.imagej.net/Java-8/jars/ij-1.52p.jar-20190701230425)
-* [imglib2-ij-2.0.0-beta-44.jar](https://sites.imagej.net/Java-8/jars/imglib2-ij-2.0.0-beta-44.jar-20181204141527)
-* [clij-advanced-filters_-0.12.4.jar](https://github.com/clij/clij-advanced-filters/releases/download/0.12.4/clij-advanced-filters_-0.12.4.jar)
-* [fiji-lib-2.1.2.jar](https://sites.imagej.net/Java-8/jars/fiji-lib-2.1.2.jar-20170530201750)
+Download the following files, removed the numbers from their file endings and put them all in the `<HOME_DIR>/Documents/MATLAB folder:
+* [clatlab-0.6.0-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/0.6.0/clatlab-0.6.0-jar-with-dependencies.jar)
+* [init_clatlab.m](https://github.com/clij/clatlab/blob/master/src/main/matlab/init_clatlab.m)
 
-
-In your matlab script, specify _every_ individual jar file in this folder using `javaaddpath('folder/jarfile.jar'). 
-It is recommended to do this in a utility function as [demonstrated here](https://github.com/clij/clatlab/blob/master/src/main/matlab/init_clatlab.m).
+Test the installation by executing this script from matlab:
+```
+clijx = init_clatlab();
+% print out name of used GPU:
+clijx.getGPUName()
+```
 
 ## Example code
 Examples are available in the [matlab](https://github.com/clij/clatlab/blob/master/src/main/matlab/) folder. 
