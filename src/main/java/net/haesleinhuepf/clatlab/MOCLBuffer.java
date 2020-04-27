@@ -1,7 +1,6 @@
 package net.haesleinhuepf.clatlab;
 
 import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
-import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
 
 /**
  * MOCLBuffer
@@ -24,15 +23,15 @@ public class MOCLBuffer {
     public MOCLBuffer plus(double scalar) {
         System.out.println("MOCL plus");
         MOCLBuffer input = this;
-        ClearCLBuffer output = mocl.clijx.create(input.buffer);
-        mocl.clijx.op.addImageAndScalar(input.buffer, output, new Float(scalar));
+        ClearCLBuffer output = mocl.clij2.create(input.buffer);
+        mocl.clij2.addImageAndScalar(input.buffer, output, new Float(scalar));
         return new MOCLBuffer(mocl, output);
     }
     public MOCLBuffer plus(MOCLBuffer input2) {
         MOCLBuffer input1 = this;
         System.out.println("MOCL plus");
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.addImages(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.addImages(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -45,8 +44,8 @@ public class MOCLBuffer {
     public MOCLBuffer minus(MOCLBuffer input2) {
         MOCLBuffer input1 = this;
         System.out.println("MOCL minus");
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.addImagesWeighted(input1.buffer, input2.buffer, output, 1f, -1f);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.addImagesWeighted(input1.buffer, input2.buffer, output, 1f, -1f);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -56,8 +55,8 @@ public class MOCLBuffer {
     public MOCLBuffer uminus() {
         MOCLBuffer input1 = this;
         System.out.println("MOCL uminus");
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.invert(input1.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.invert(input1.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -69,11 +68,11 @@ public class MOCLBuffer {
         System.out.println("MOCL transpose");
         ClearCLBuffer output;
         if (input.buffer.getDimension() == 2) {
-            output = mocl.clijx.create(new long[]{input.buffer.getHeight(), input.buffer.getWidth()}, input.buffer.getNativeType());
+            output = mocl.clij2.create(new long[]{input.buffer.getHeight(), input.buffer.getWidth()}, input.buffer.getNativeType());
         } else {
-            output = mocl.clijx.create(new long[]{input.buffer.getHeight(), input.buffer.getWidth(), input.buffer.getDepth()}, input.buffer.getNativeType());
+            output = mocl.clij2.create(new long[]{input.buffer.getHeight(), input.buffer.getWidth(), input.buffer.getDepth()}, input.buffer.getNativeType());
         }
-        mocl.clijx.op.transposeXY(input.buffer, output);
+        mocl.clij2.transposeXY(input.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -84,16 +83,16 @@ public class MOCLBuffer {
     public MOCLBuffer times(double scalar) {
         MOCLBuffer input = this;
         System.out.println("MOCL times");
-        ClearCLBuffer output = mocl.clijx.create(input.buffer);
-        mocl.clijx.op.multiplyImageAndScalar(input.buffer, output, new Float(scalar));
+        ClearCLBuffer output = mocl.clij2.create(input.buffer);
+        mocl.clij2.multiplyImageAndScalar(input.buffer, output, new Float(scalar));
         return new MOCLBuffer(mocl, output);
     }
 
     public MOCLBuffer times(MOCLBuffer input2) {
         MOCLBuffer input1 = this;
         System.out.println("MOCL times");
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.multiplyImages(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.multiplyImages(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -107,8 +106,8 @@ public class MOCLBuffer {
     public MOCLBuffer mtimes(MOCLBuffer input2) {
         MOCLBuffer input1 = this;
         System.out.println("MOCL mtimes");
-        ClearCLBuffer output = mocl.clijx.create(new long[]{input1.buffer.getWidth(), input2.buffer.getHeight()}, input1.buffer.getNativeType());
-        mocl.clijx.op.multiplyMatrix(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(new long[]{input1.buffer.getWidth(), input2.buffer.getHeight()}, input1.buffer.getNativeType());
+        mocl.clij2.multiplyMatrix(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -118,8 +117,8 @@ public class MOCLBuffer {
     public MOCLBuffer rdivide(MOCLBuffer input2) {
         System.out.println("MOCL rdivide");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.divideImages(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.divideImages(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -137,8 +136,8 @@ public class MOCLBuffer {
     public MOCLBuffer power(MOCLBuffer input2) {
         System.out.println("MOCL power");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.powerImages(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.powerImages(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -148,8 +147,8 @@ public class MOCLBuffer {
     public MOCLBuffer lt(MOCLBuffer input2) {
         System.out.println("MOCL lt");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.smaller(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.smaller(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
         //a > b
@@ -158,8 +157,8 @@ public class MOCLBuffer {
     public MOCLBuffer gt(MOCLBuffer input2) {
         System.out.println("MOCL gt");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.greaterOrEqual(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.greaterOrEqual(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -169,8 +168,8 @@ public class MOCLBuffer {
     public MOCLBuffer le(MOCLBuffer input2) {
         System.out.println("MOCL le");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.smallerOrEqual(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.smallerOrEqual(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -180,8 +179,8 @@ public class MOCLBuffer {
     public MOCLBuffer ge(MOCLBuffer input2) {
         System.out.println("MOCL ge");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.greaterOrEqual(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.greaterOrEqual(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -191,8 +190,8 @@ public class MOCLBuffer {
     public MOCLBuffer ne(MOCLBuffer input2) {
         System.out.println("MOCL ne");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.notEqual(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.notEqual(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -202,8 +201,8 @@ public class MOCLBuffer {
     public MOCLBuffer eq(MOCLBuffer input2) {
         System.out.println("MOCL eq");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.equal(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.equal(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -213,8 +212,8 @@ public class MOCLBuffer {
     public MOCLBuffer and(MOCLBuffer input2) {
         System.out.println("MOCL and");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.binaryAnd(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.binaryAnd(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -224,8 +223,8 @@ public class MOCLBuffer {
     public MOCLBuffer or(MOCLBuffer input2) {
         System.out.println("MOCL or");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.binaryOr(input1.buffer, input2.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.binaryOr(input1.buffer, input2.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 
@@ -235,8 +234,8 @@ public class MOCLBuffer {
     public MOCLBuffer not() {
         System.out.println("MOCL power");
         MOCLBuffer input1 = this;
-        ClearCLBuffer output = mocl.clijx.create(input1.buffer);
-        mocl.clijx.op.binaryNot(input1.buffer, output);
+        ClearCLBuffer output = mocl.clij2.create(input1.buffer);
+        mocl.clij2.binaryNot(input1.buffer, output);
         return new MOCLBuffer(mocl, output);
     }
 }
