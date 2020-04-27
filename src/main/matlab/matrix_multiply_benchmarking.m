@@ -18,25 +18,26 @@ clij2 = init_clatlab()
 clij2.clear();
 
 % create some test data
-a = [1 2 3; 4 5 6]'
-b = [1 2 3; 4 5 6]
+a = rand(5000, 1000);
+b = rand(1000, 5000);
 
-% push it to the GPU and pull back to see if its fine
+time_before_gpu = now;
+
+% push it to the GPU
 A = clij2.pushMat(a);
-a = clij2.pullMat(A) 
 B = clij2.pushMat(b);
-b = clij2.pullMat(B) 
-
-% check sizes and content
-size_a = size(a)
-size_A = clij2.getDimensions(A)
-size_b = size(b)
-size_B = clij2.getDimensions(B)
 
 % multiply matrices on the GPU
 C = clij2.create(3, 3);
 clij2.multiplyMatrix(A, B, C);
 
-c = clij2.pullMat(C)
+c = clij2.pullMat(C);
 
-c_ = a * b
+time_after_gpu = now;
+
+time_before_cpu = now;
+c_ = a * b;
+time_after_cpu = now;
+
+duration_gpu = time_after_gpu - time_before_gpu
+duration_cpu = time_after_cpu - time_before_cpu
