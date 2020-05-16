@@ -8,7 +8,7 @@ Right now, this is very preliminary.
 
 ## Installation
 Download the following files, removed the numbers from their file endings and put them all in the `<HOME_DIR>/Documents/MATLAB folder:
-* [clatlab-0.27.4-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/0.27.4/clatlab-0.27.4-jar-with-dependencies.jar)
+* [clatlab-2.0.0.0-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/2.0.0.0/clatlab-2.0.0.0-jar-with-dependencies.jar)
 * [init_clatlab.m](https://github.com/clij/clatlab/blob/master/src/main/matlab_install/init_clatlab.m)
 
 Test the installation by executing this script from matlab:
