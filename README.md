@@ -4,8 +4,6 @@ clatlab is a bridge between [Matlab](https://de.mathworks.com/products/matlab.ht
 
 ![Image](images/clablab-screenshot.png)
 
-Right now, this is very preliminary.
-
 ## Installation
 Download the following files, removed the numbers from their file endings and put them all in the `<HOME_DIR>/Documents/MATLAB folder:
 * [clatlab-2.0.0.10-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/2.0.0.10/clatlab-2.0.0.10-jar-with-dependencies.jar)
@@ -74,11 +72,6 @@ cd clatlab
 mvn package
 cp target/clatlab*.jar classpath/
 ```
-
-
-## Please note
-It is recommended to [use clij from Fiji](https://clij.github.io/clij-docs/installationInFiji). 
-Matlab support is under development.
 
 [Back to CLIJ documentation](https://clij.github.io/)
 
