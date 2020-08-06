@@ -26,10 +26,6 @@ Clatlab provides two entry points for processing:
 clij2.gaussianBlur(imageIn, imageOut, 5, 5);
 ```
 
-
-### MOCL Commands
-Following MOCL commands are implemented. Some are not fully tested yet. Work in progress.
-
 | Command         | Matlab expresson     | clij2 counter part                       |
 | --------------- | -------------------- | ---------------------------------------- |
 | push(a)         |                      | c = clij2.pushMat(a);                               |
