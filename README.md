@@ -6,7 +6,7 @@ clatlab is a bridge between [Matlab](https://de.mathworks.com/products/matlab.ht
 
 ## Installation
 Download the following files, removed the numbers from their file endings and put them all in the `<HOME_DIR>/Documents/MATLAB folder:
-* [clatlab-2.2.0.12-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/2.2.0.12/clatlab-2.2.0.12-jar-with-dependencies.jar)
+* [clatlab-2.2.0.14-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/2.2.0.14/clatlab-2.2.0.14-jar-with-dependencies.jar)
 * [init_clatlab.m](https://github.com/clij/clatlab/blob/master/src/main/matlab_install/init_clatlab.m)
 
 Test the installation by executing this script from matlab:
