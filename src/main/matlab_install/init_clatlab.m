@@ -15,7 +15,7 @@
 
 function clatlab_ = init_clatlab()
     if (exist('net.haesleinhuepf.clatlab.CLATLAB') ~= 8)
-		jar_location = strrep(mfilename('fullpath'), 'init_clatlab', 'clatlab-2.3.0.6-jar-with-dependencies.jar');
+		jar_location = strrep(mfilename('fullpath'), 'init_clatlab', 'clatlab-2.5.0.1-jar-with-dependencies.jar');
         javaaddpath(jar_location);
     end
     clatlab_ = net.haesleinhuepf.clatlab.CLATLAB.getInstance();

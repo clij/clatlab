@@ -2,11 +2,14 @@
  
 clatlab is a bridge between [Matlab](https://de.mathworks.com/products/matlab.html) and [clij2](https://clij.github.io/clij2).
 
+For scripting clatlab it's recommended to use [CLIJ2-assistant](https://clij.github.io/clij2-assistant)
+and its matlab code generator.
+
 ![Image](images/clablab-screenshot.png)
 
 ## Installation
 Download the following files, removed the numbers from their file endings and put them all in the `<HOME_DIR>/Documents/MATLAB folder:
-* [clatlab-2.3.0.6-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/2.3.0.6/clatlab-2.3.0.6-jar-with-dependencies.jar)
+* [clatlab-2.5.0.1-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/2.5.0.1/clatlab-2.5.0.1-jar-with-dependencies.jar)
 * [init_clatlab.m](https://github.com/clij/clatlab/blob/master/src/main/matlab_install/init_clatlab.m)
 
 Test the installation by executing this script from matlab:

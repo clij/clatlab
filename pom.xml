@@ -7,23 +7,29 @@
 	<parent>
 		<groupId>net.haesleinhuepf</groupId>
 		<artifactId>clij-parent-pom</artifactId>
-		<version>2.3.0.6</version>
+		<version>2.5.0.1</version>
 	</parent>
 
 	<groupId>net.haesleinhuepf</groupId>
 	<artifactId>clatlab</artifactId>
-	<version>2.3.0.6</version>
+	<version>2.5.0.1</version>
 	<name>CLATLAB</name>
 	<description>CLIJ2 bridge to Matlab</description>
 
 	<dependencies>
 		<dependency>
 			<groupId>net.haesleinhuepf</groupId>
-			<artifactId>clij-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.haesleinhuepf</groupId>
 			<artifactId>clij2_</artifactId>
+			<exclusions>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>edu.mines</groupId>
+					<artifactId>mines-jtk</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.github.sbridges.object-inspector</groupId>
+					<artifactId>object-inspector</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
