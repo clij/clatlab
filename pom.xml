@@ -7,21 +7,14 @@
 	<parent>
 		<groupId>net.haesleinhuepf</groupId>
 		<artifactId>clij-parent-pom</artifactId>
-		<version>2.2.0.19</version>
+		<version>2.3.0.6</version>
 	</parent>
 
 	<groupId>net.haesleinhuepf</groupId>
 	<artifactId>clatlab</artifactId>
-	<version>2.2.0.19</version>
+	<version>2.3.0.6</version>
 	<name>CLATLAB</name>
 	<description>CLIJ2 bridge to Matlab</description>
-
-	<repositories>
-		<repository>
-			<id>clij</id>
-			<url>http://dl.bintray.com/haesleinhuepf/clij</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>
