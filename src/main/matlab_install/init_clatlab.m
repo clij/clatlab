@@ -5,7 +5,7 @@
 %
 %
 % In order to make this script run, you need to install CLATLAB an
-% run it from matlab. Tested with Matlab 2019b
+% run it from matlab. Tested with Matlab 2020b
 %         https://clij.github.io/clatlab/
 % 
 % Author: Robert Haase, rhaase@mpi-cbg.de
@@ -15,7 +15,7 @@
 
 function clatlab_ = init_clatlab()
     if (exist('net.haesleinhuepf.clatlab.CLATLAB') ~= 8)
-		jar_location = strrep(mfilename('fullpath'), 'init_clatlab', 'clatlab-2.5.0.1-jar-with-dependencies.jar');
+		jar_location = strrep(mfilename('fullpath'), 'init_clatlab', 'clatlab-2.5.1.4-jar-with-dependencies.jar');
         javaaddpath(jar_location);
     end
     clatlab_ = net.haesleinhuepf.clatlab.CLATLAB.getInstance();
