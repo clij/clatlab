@@ -9,7 +9,7 @@ and its matlab code generator.
 
 ## Installation
 Download the following files, removed the numbers from their file endings and put them all in the `<HOME_DIR>/Documents/MATLAB folder:
-* [clatlab-2.5.1.4-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/2.5.1.4/clatlab-2.5.1.4-jar-with-dependencies.jar)
+* [clatlab-2.5.1.5-jar-with-dependencies.jar](https://github.com/clij/clatlab/releases/download/2.5.1.5/clatlab-2.5.1.5-jar-with-dependencies.jar)
 * [init_clatlab.m](https://github.com/clij/clatlab/blob/master/src/main/matlab_install/init_clatlab.m)
 
 Test the installation by executing this script from matlab:

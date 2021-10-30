@@ -15,7 +15,7 @@
 
 function clatlab_ = init_clatlab(gpu_name)
     if (exist('net.haesleinhuepf.clatlab.CLATLAB') ~= 8)
-		jar_location = strrep(mfilename('fullpath'), 'init_clatlab', 'clatlab-2.5.1.4-jar-with-dependencies.jar');
+		jar_location = strrep(mfilename('fullpath'), 'init_clatlab', 'clatlab-2.5.1.5-jar-with-dependencies.jar');
         javaaddpath(jar_location);
     end
 
