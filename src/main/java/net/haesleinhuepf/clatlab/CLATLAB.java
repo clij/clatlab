@@ -1,10 +1,9 @@
 package net.haesleinhuepf.clatlab;
 
-import ij.ImagePlus;
 import net.haesleinhuepf.clij.CLIJ;
-import net.haesleinhuepf.clij.clearcl.ClearCLBuffer;
-import net.haesleinhuepf.clij.coremem.enums.NativeTypeEnum;
 import net.haesleinhuepf.clij2.CLIJ2;
+
+import java.util.Locale;
 
 /**
  * The CLATLAB gateway.
@@ -32,4 +31,12 @@ public class CLATLAB extends CLIJ2 {
         }
         return instance;
     }
+
+    public static CLATLAB getInstance(String gpu_name) {
+        if (instance == null || !instance.getGPUName().toLowerCase().contains(gpu_name.toLowerCase())) {
+            instance = new CLATLAB(CLIJ.getInstance(gpu_name));
+        }
+        return instance;
+    }
+
 }

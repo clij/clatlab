@@ -8,15 +8,20 @@
 % run it from matlab. Tested with Matlab 2020b
 %         https://clij.github.io/clatlab/
 % 
-% Author: Robert Haase, rhaase@mpi-cbg.de
-%         August 2019
+% Author: Robert Haase, robert.haase@tu-dresen.de
+%         November 2021
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function clatlab_ = init_clatlab()
+function clatlab_ = init_clatlab(gpu_name)
     if (exist('net.haesleinhuepf.clatlab.CLATLAB') ~= 8)
 		jar_location = strrep(mfilename('fullpath'), 'init_clatlab', 'clatlab-2.5.1.4-jar-with-dependencies.jar');
         javaaddpath(jar_location);
     end
-    clatlab_ = net.haesleinhuepf.clatlab.CLATLAB.getInstance();
+
+    if ~exist('gpu_name','var')
+        gpu_name = "";
+    end
+
+    clatlab_ = net.haesleinhuepf.clatlab.CLATLAB.getInstance(gpu_name);
 end
